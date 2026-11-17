@@ -1,0 +1,56 @@
+# Пример HTTPS-конфигурации.
+# 1. Скопируйте файл в app-ssl.conf и замените example.ru на ваш домен.
+# 2. Выпустите сертификат (см. README, раздел «HTTPS»).
+# 3. В app.conf включите redirect на https и уберите дублирующий server, если он не нужен.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name example.ru www.example.ru;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name example.ru www.example.ru;
+
+    ssl_certificate /etc/letsencrypt/live/example.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.ru/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    location /api/leads {
+        limit_req zone=leads_zone burst=4 nodelay;
+        proxy_pass http://backend:8000;
+    }
+
+    location /api/ {
+        limit_req zone=api_zone burst=40 nodelay;
+        proxy_pass http://backend:8000;
+        proxy_read_timeout 120s;
+    }
+
+    location /_next/static/ {
+        proxy_pass http://frontend:3000;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    location / {
+        proxy_pass http://frontend:3000;
+    }
+}
