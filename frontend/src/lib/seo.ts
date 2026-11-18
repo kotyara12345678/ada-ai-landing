@@ -31,7 +31,20 @@ export function buildMetadata({
     alternates: { canonical: path === "/" ? "/" : path },
     robots: noindex
       ? { index: false, follow: false }
-      : { index: true, follow: true, googleBot: { index: true, follow: true } },
+      : {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        },
     openGraph: {
       type,
       locale: site.locale,
@@ -66,6 +79,15 @@ export const jsonLdOrganization = {
   email: site.contacts.email,
   areaServed: { "@type": "Country", name: "Россия" },
   availableLanguage: ["ru"],
+  priceRange: "от 7 000 ₽",
+  currenciesAccepted: "RUB",
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    email: site.contacts.email,
+    availableLanguage: ["ru"],
+    areaServed: "RU",
+  },
   knowsAbout: [
     "Разработка сайтов",
     "Backend-разработка",
@@ -76,6 +98,17 @@ export const jsonLdOrganization = {
     "Голосовые AI-агенты",
   ],
   sameAs: [site.contacts.telegram],
+} as const;
+
+export const jsonLdWebSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${site.url}#website`,
+  url: site.url,
+  name: site.name,
+  description: site.description,
+  inLanguage: "ru-RU",
+  publisher: { "@id": `${site.url}#organization` },
 } as const;
 
 export function jsonLdBreadcrumbs(items: { name: string; path: string }[]) {

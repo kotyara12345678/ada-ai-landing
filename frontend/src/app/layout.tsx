@@ -9,7 +9,7 @@ import { Analytics } from "@/components/layout/Analytics";
 import { AIConsultant } from "@/components/ai/AIConsultant";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { site } from "@/config/site";
-import { jsonLdOrganization } from "@/lib/seo";
+import { jsonLdOrganization, jsonLdWebSite } from "@/lib/seo";
 
 const defaultTitle = `${site.name} — разработка и техническое сопровождение IT-продуктов`;
 
@@ -39,7 +39,13 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: site.description,
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   verification: {
     google: site.analytics.googleSiteVerification || undefined,
     yandex: site.analytics.yandexWebmaster || undefined,
@@ -64,7 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Перейти к содержимому
         </a>
-        <JsonLd data={jsonLdOrganization} id="organization-jsonld" />
+        <JsonLd data={[jsonLdOrganization, jsonLdWebSite]} id="site-jsonld" />
         <Header />
         <main id="main">{children}</main>
         <Footer />
