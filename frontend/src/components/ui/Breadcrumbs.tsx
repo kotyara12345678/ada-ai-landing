@@ -11,18 +11,18 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <nav aria-label="Хлебные крошки">
       <JsonLd data={jsonLdBreadcrumbs(full)} />
-      <ol className="flex flex-wrap items-center gap-1.5 font-mono text-[0.7rem] tracking-wide text-muted">
+      <ol className="flex flex-wrap items-center gap-1.5 text-[0.78rem] text-ink-muted">
         {full.map((item, index) => {
           const isLast = index === full.length - 1;
           return (
             <li key={item.path} className="flex items-center gap-1.5">
-              {index > 0 ? <ChevronRight className="size-3 text-muted/50" aria-hidden /> : null}
+              {index > 0 ? <ChevronRight className="size-3 text-ink-muted/60" aria-hidden /> : null}
               {isLast ? (
-                <span aria-current="page" className="text-bone/80">
+                <span aria-current="page" className="text-ink">
                   {item.name}
                 </span>
               ) : (
-                <Link href={item.path} className="transition-colors hover:text-bone">
+                <Link href={item.path} className="transition-colors hover:text-brand">
                   {item.name}
                 </Link>
               )}

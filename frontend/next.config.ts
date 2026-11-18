@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
-    return [
+    const headers = [
       {
         source: "/:path*",
         headers: [
@@ -35,11 +35,17 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
-      {
+    ];
+
+    // В dev имена чанков не хешируются, поэтому immutable-кэш ломает hot reload.
+    if (process.env.NODE_ENV === "production") {
+      headers.push({
         source: "/_next/static/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
-      },
-    ];
+      });
+    }
+
+    return headers;
   },
 };
 

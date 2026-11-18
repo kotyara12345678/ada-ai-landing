@@ -64,7 +64,6 @@ export const jsonLdOrganization = {
   url: site.url,
   description: site.description,
   email: site.contacts.email,
-  ...(site.contacts.phone ? { telephone: site.contacts.phone } : {}),
   areaServed: { "@type": "Country", name: "Россия" },
   availableLanguage: ["ru"],
   knowsAbout: [

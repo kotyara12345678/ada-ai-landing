@@ -26,6 +26,7 @@ certbot/
 # Локальные служебные файлы и логи
 .tmp/
 *.log
+*.pid
 npm-debug.log*
 
 # OS / editors

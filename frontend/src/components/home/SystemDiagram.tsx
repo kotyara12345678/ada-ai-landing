@@ -1,93 +1,76 @@
-"use client";
+import { Check, Code2, LifeBuoy, Rocket } from "lucide-react";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDownRight } from "lucide-react";
+const steps = [
+  {
+    icon: Code2,
+    label: "Разработка",
+    title: "Сайт, backend, AI-сервис",
+    items: ["Прототип и архитектура", "Реализация и тесты"],
+  },
+  {
+    icon: Rocket,
+    label: "Запуск",
+    title: "Развёртывание на сервере",
+    items: ["Домен и HTTPS", "Резервные копии и мониторинг"],
+  },
+  {
+    icon: LifeBuoy,
+    label: "Сопровождение",
+    title: "Техническая эксплуатация",
+    items: ["Обновления и контроль SSL", "Реакция на инциденты"],
+  },
+];
 
-/**
- * Техническая схема продукта. Сознательно абстрактная: показывает процесс
- * (запрос → решение → действие), а не конкретный интерфейс.
- */
 export function SystemDiagram() {
-  const reduce = useReducedMotion();
-  const nodes = [
-    { label: "Запрос", meta: "форма / бот / звонок", y: 34 },
-    { label: "Логика", meta: "backend + правила", y: 104 },
-    { label: "Модель", meta: "LLM · RAG · tools", y: 174 },
-    { label: "Действие", meta: "CRM · БД · Telegram", y: 244 },
-  ];
-
   return (
-    <div className="relative overflow-hidden rounded-xl border border-muted/20 bg-forest/60 p-5">
-      <div className="mb-5 flex items-center justify-between border-b border-muted/15 pb-3">
-        <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted">product flow</span>
-        <span className="flex items-center gap-1.5 font-mono text-[0.6rem] uppercase tracking-[0.16em] text-emerald">
-          <span className="size-1.5 rounded-full bg-emerald" />
-          live
-        </span>
-      </div>
-
-      <div className="relative h-[290px]">
-        <svg
-          className="absolute inset-0 h-full w-full"
-          viewBox="0 0 300 290"
-          fill="none"
-          aria-hidden
-          preserveAspectRatio="none"
-        >
-          <motion.path
-            d="M40 52 V290"
-            stroke="rgba(155,170,161,0.25)"
-            strokeWidth="1"
-            strokeDasharray="2 4"
-            initial={reduce ? false : { pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.4, ease: "easeOut" }}
-          />
-          {nodes.map((node, index) => (
-            <motion.path
-              key={node.label}
-              d={`M40 ${node.y + 12} H 120`}
-              stroke="rgba(32,201,130,0.45)"
-              strokeWidth="1"
-              initial={reduce ? false : { pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 + index * 0.15 }}
-            />
-          ))}
-          <motion.circle
-            cx="40"
-            cy="34"
-            r="3"
-            fill="#20C982"
-            animate={reduce ? undefined : { cy: [34, 244, 34], opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </svg>
-
-        <div className="relative space-y-3">
-          {nodes.map((node, index) => (
-            <motion.div
-              key={node.label}
-              initial={reduce ? false : { opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.35 + index * 0.15 }}
-              className="ml-[62px] flex items-center justify-between gap-3 rounded-lg border border-muted/15 bg-graphite/70 px-3 py-2.5 backdrop-blur-sm"
-            >
-              <div>
-                <p className="text-[0.8rem] font-medium text-bone">{node.label}</p>
-                <p className="font-mono text-[0.6rem] tracking-wide text-muted">{node.meta}</p>
-              </div>
-              <span className="font-mono text-[0.6rem] text-muted/40">0{index + 1}</span>
-            </motion.div>
-          ))}
+    <div className="rounded-2xl border border-line bg-surface p-5 shadow-card sm:p-6">
+      <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
+        <div>
+          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">
+            Цикл работы с продуктом
+          </p>
+          <p className="mt-1 font-display text-[1.02rem] font-semibold text-ink">
+            От идеи до эксплуатации
+          </p>
         </div>
+        <span className="rounded-md bg-success-soft px-2.5 py-1 text-[0.7rem] font-medium text-success">
+          полный цикл
+        </span>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-muted/15 pt-3">
-        <span className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-muted/70">
-          идея → архитектура → продукт
-        </span>
-        <ArrowDownRight className="size-3.5 text-emerald" aria-hidden />
+      <ol className="mt-4">
+        {steps.map((step, index) => (
+          <li key={step.label} className="relative flex gap-4 pb-5 last:pb-0">
+            {index < steps.length - 1 ? (
+              <span
+                className="absolute left-[1.1rem] top-10 h-[calc(100%-1.75rem)] w-px bg-line"
+                aria-hidden
+              />
+            ) : null}
+            <span className="relative z-10 flex size-9 shrink-0 items-center justify-center rounded-lg border border-line bg-surface-muted text-brand">
+              <step.icon className="size-[18px]" strokeWidth={1.8} aria-hidden />
+            </span>
+            <div className="min-w-0 pt-0.5">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <p className="text-[0.9rem] font-medium text-ink">{step.label}</p>
+                <span className="text-[0.76rem] text-ink-muted">{step.title}</span>
+              </div>
+              <ul className="mt-1.5 flex flex-col gap-1">
+                {step.items.map((item) => (
+                  <li key={item} className="flex items-center gap-1.5 text-[0.8rem] text-ink-muted">
+                    <Check className="size-3.5 shrink-0 text-success" aria-hidden />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-3">
+        <p className="text-[0.74rem] text-ink-muted">Поддержка — в рабочие часы по тарифу</p>
+        <p className="text-[0.74rem] font-medium text-ink">без обещаний 24/7</p>
       </div>
     </div>
   );

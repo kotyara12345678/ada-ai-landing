@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+// Шрифты лежат в пакетах и собираются вместе с бандлом: сборка не зависит от Google Fonts.
+import "@fontsource-variable/inter";
+import "@fontsource-variable/manrope";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -9,22 +11,12 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { site } from "@/config/site";
 import { jsonLdOrganization } from "@/lib/seo";
 
-const inter = Inter({
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-  variable: "--font-inter",
-});
-
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-  variable: "--font-manrope",
-});
+const defaultTitle = `${site.name} — разработка и техническое сопровождение IT-продуктов`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — разработка сайтов, ПО и AI-решений`,
+    default: defaultTitle,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -39,12 +31,12 @@ export const metadata: Metadata = {
     locale: site.locale,
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — разработка сайтов, ПО и AI-решений`,
+    title: defaultTitle,
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — разработка сайтов, ПО и AI-решений`,
+    title: defaultTitle,
     description: site.description,
   },
   robots: { index: true, follow: true },
@@ -56,19 +48,19 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#101512",
+  themeColor: "#070b14",
   width: "device-width",
   initialScale: 1,
-  colorScheme: "dark light",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={site.lang} className={`${inter.variable} ${manrope.variable}`}>
-      <body className="min-h-dvh bg-graphite text-bone antialiased">
+    <html lang={site.lang}>
+      <body className="min-h-dvh bg-surface text-ink antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-emerald focus:px-4 focus:py-2 focus:text-sm focus:text-graphite"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-brand focus:px-4 focus:py-2 focus:text-sm focus:text-white"
         >
           Перейти к содержимому
         </a>

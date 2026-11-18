@@ -7,10 +7,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const base = site.url;
 
-  const staticPages: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+  const staticPages: {
+    path: string;
+    priority: number;
+    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }[] = [
     { path: "/", priority: 1, changeFrequency: "weekly" },
+    { path: "/maintenance", priority: 0.95, changeFrequency: "monthly" },
     { path: "/pricing", priority: 0.9, changeFrequency: "monthly" },
-    { path: "/portfolio", priority: 0.85, changeFrequency: "monthly" },
     { path: "/contacts", priority: 0.8, changeFrequency: "yearly" },
     { path: "/about", priority: 0.7, changeFrequency: "yearly" },
     { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
@@ -29,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/${direction.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.9,
+      priority: direction.group === "maintenance" ? 0.85 : 0.9,
     })),
     ...articles.map((article) => ({
       url: `${base}/blog/${article.slug}`,

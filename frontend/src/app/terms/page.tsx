@@ -55,20 +55,20 @@ const sections = [
 
 export default function TermsPage() {
   return (
-    <section className="pt-28 md:pt-32">
-      <div className="container-page max-w-3xl pb-16 md:pb-24">
+    <section className="bg-surface">
+      <div className="container-page max-w-3xl py-8 md:py-12">
         <Breadcrumbs items={[{ name: "Условия использования", path: "/terms" }]} />
-        <h1 className="mt-8 text-h2 text-bone">Условия использования</h1>
-        <p className="mt-4 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-muted/60">
+        <h1 className="mt-6 text-h2 text-ink">Условия использования</h1>
+        <p className="mt-3 text-[0.8rem] text-ink-muted">
           Обновлено: 1 ноября 2025
         </p>
 
-        <div className="mt-10 space-y-8 border-t border-muted/15 pt-8">
+        <div className="mt-8 space-y-7 border-t border-line pt-7">
           {sections.map((section) => (
             <div key={section.title}>
-              <h2 className="font-display text-[1.1rem] font-semibold text-bone">{section.title}</h2>
+              <h2 className="font-display text-[1.05rem] font-semibold text-ink">{section.title}</h2>
               {section.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="mt-2.5 text-[0.92rem] leading-relaxed text-muted">
+                <p key={paragraph} className="mt-2 text-[0.86rem] leading-relaxed text-ink-muted">
                   {paragraph}
                 </p>
               ))}

@@ -3,13 +3,14 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Loader2, ShieldCheck } from "lucide-react";
-import { directions } from "@/config/services";
+import { developmentDirections, maintenanceDirections } from "@/config/services";
 import { legal } from "@/config/site";
 import { ApiError, submitLead, type LeadResponse } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 const budgets = [
+  "обслуживание по тарифу",
   "до 15 000 ₽",
   "15 000 – 50 000 ₽",
   "50 000 – 150 000 ₽",
@@ -21,9 +22,9 @@ const budgets = [
 const deadlines = ["Как можно скорее", "В течение месяца", "1–3 месяца", "Без жёсткого срока"];
 
 const fieldClass =
-  "w-full rounded-xl border border-graphite/15 bg-white/80 px-4 py-3 text-[0.92rem] text-graphite outline-none transition-colors placeholder:text-graphite/35 focus:border-emerald focus:bg-white";
+  "w-full rounded-lg border border-line-strong bg-surface px-3.5 py-2.5 text-[0.9rem] text-ink outline-none transition-colors placeholder:text-ink-muted/60 focus:border-brand focus:ring-2 focus:ring-brand/15";
 
-const labelClass = "mb-2 block font-mono text-[0.66rem] uppercase tracking-[0.14em] text-graphite/55";
+const labelClass = "mb-1.5 block text-[0.78rem] font-medium text-ink";
 
 type LeadFormProps = {
   /** Направление по умолчанию (slug из services.ts) */
@@ -49,9 +50,11 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
   const [consent, setConsent] = useState(false);
   const [company, setCompany] = useState("");
 
-  const update = (key: keyof typeof values) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setValues((prev) => ({ ...prev, [key]: event.target.value }));
-  };
+  const update =
+    (key: keyof typeof values) =>
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setValues((prev) => ({ ...prev, [key]: event.target.value }));
+    };
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -85,26 +88,28 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
       setStatus("success");
     } catch (caught) {
       setStatus("error");
-      setError(caught instanceof ApiError ? caught.message : "Не удалось отправить заявку. Попробуйте ещё раз.");
+      setError(
+        caught instanceof ApiError ? caught.message : "Не удалось отправить заявку. Попробуйте ещё раз.",
+      );
     }
   }
 
   if (status === "success" && result) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className={cn("rounded-2xl border border-emerald/30 bg-white/85 p-8", className)}
+        className={cn("rounded-xl border border-success/30 bg-success-soft p-6", className)}
       >
-        <div className="mb-4 flex size-11 items-center justify-center rounded-full bg-emerald/15">
-          <Check className="size-5 text-[#0c8a58]" aria-hidden />
+        <div className="mb-3 flex size-10 items-center justify-center rounded-full bg-success/15">
+          <Check className="size-5 text-success" aria-hidden />
         </div>
-        <h3 className="text-h3 mb-2 text-graphite">Заявка принята</h3>
-        <p className="mb-4 text-[0.92rem] leading-relaxed text-graphite/65">
-          Номер обращения: <span className="font-mono text-graphite">{result.public_id}</span>. Мы свяжемся
-          с вами по указанному контакту, чтобы уточнить детали и оценить объём работ.
+        <h3 className="text-h3 mb-2 text-ink">Заявка принята</h3>
+        <p className="mb-3 text-[0.9rem] leading-relaxed text-ink">
+          Номер обращения: <span className="font-medium">{result.public_id}</span>. Мы свяжемся с вами
+          по указанному контакту, чтобы уточнить детали и оценить объём работ.
         </p>
-        <p className="text-[0.82rem] text-graphite/50">
+        <p className="text-[0.82rem] text-ink-muted">
           Если задача срочная — напишите в Telegram, ответим быстрее.
         </p>
       </motion.div>
@@ -116,7 +121,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="lead-name">
-            Имя *
+            Имя <span className="text-brand">*</span>
           </label>
           <input
             id="lead-name"
@@ -132,7 +137,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
         </div>
         <div>
           <label className={labelClass} htmlFor="lead-contact">
-            Telegram или телефон *
+            Telegram или телефон <span className="text-brand">*</span>
           </label>
           <input
             id="lead-contact"
@@ -151,7 +156,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="lead-email">
-            Email <span className="normal-case tracking-normal">(необязательно)</span>
+            Email <span className="font-normal text-ink-muted">(необязательно)</span>
           </label>
           <input
             id="lead-email"
@@ -172,16 +177,25 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
           <select
             id="lead-direction"
             name="direction"
-            className={cn(fieldClass, "appearance-none bg-[length:14px] pr-10")}
+            className={cn(fieldClass, "appearance-none pr-9")}
             value={values.direction}
             onChange={update("direction")}
           >
             <option value="">Выберите направление</option>
-            {directions.map((direction) => (
-              <option key={direction.slug} value={direction.slug}>
-                {direction.name}
-              </option>
-            ))}
+            <optgroup label="Разработка">
+              {developmentDirections.map((direction) => (
+                <option key={direction.slug} value={direction.slug}>
+                  {direction.name}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label="Обслуживание">
+              {maintenanceDirections.map((direction) => (
+                <option key={direction.slug} value={direction.slug}>
+                  {direction.name}
+                </option>
+              ))}
+            </optgroup>
             <option value="other">Другое / не знаю</option>
           </select>
         </div>
@@ -189,13 +203,13 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
 
       <div>
         <label className={labelClass} htmlFor="lead-description">
-          Описание задачи *
+          Описание задачи <span className="text-brand">*</span>
         </label>
         <textarea
           id="lead-description"
           name="description"
           className={cn(fieldClass, "min-h-28 resize-y")}
-          placeholder="Что нужно сделать, для кого, какие системы уже используются"
+          placeholder="Что нужно сделать или что уже работает и требует обслуживания"
           value={values.description}
           onChange={update("description")}
           maxLength={4000}
@@ -212,7 +226,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
             <select
               id="lead-budget"
               name="budget"
-              className={cn(fieldClass, "appearance-none pr-10")}
+              className={cn(fieldClass, "appearance-none pr-9")}
               value={values.budget}
               onChange={update("budget")}
             >
@@ -231,7 +245,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
             <select
               id="lead-deadline"
               name="deadline"
-              className={cn(fieldClass, "appearance-none pr-10")}
+              className={cn(fieldClass, "appearance-none pr-9")}
               value={values.deadline}
               onChange={update("deadline")}
             >
@@ -259,33 +273,33 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
         />
       </div>
 
-      <label className="flex cursor-pointer items-start gap-3 pt-1 text-[0.78rem] leading-relaxed text-graphite/60">
+      <label className="flex cursor-pointer items-start gap-2.5 pt-1 text-[0.78rem] leading-relaxed text-ink-muted">
         <input
           type="checkbox"
           name="consent"
           checked={consent}
           onChange={(event) => setConsent(event.target.checked)}
-          className="mt-0.5 size-4 shrink-0 accent-[#20C982]"
+          className="mt-0.5 size-4 shrink-0 accent-brand"
         />
         <span>
           {legal.consentText}.{" "}
-          <Link href={legal.privacyPath} className="text-graphite/80 underline decoration-graphite/25 underline-offset-2 hover:text-graphite">
+          <Link href={legal.privacyPath} className="text-ink underline underline-offset-2 hover:text-brand">
             Политика конфиденциальности
           </Link>
         </span>
       </label>
 
       {error ? (
-        <p role="alert" className="rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3 text-[0.82rem] text-red-700">
+        <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-[0.82rem] text-red-700">
           {error}
         </p>
       ) : null}
 
-      <div className="flex flex-wrap items-center gap-4 pt-1">
+      <div className="flex flex-wrap items-center gap-3 pt-1">
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="group inline-flex h-12 items-center gap-2 rounded-full bg-graphite px-6 text-[0.9rem] font-medium text-bone transition-colors hover:bg-forest disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex h-11 items-center gap-2 rounded-lg bg-brand px-5 text-[0.9rem] font-medium text-white transition-colors hover:bg-brand-dark disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting" ? (
             <>
@@ -295,11 +309,11 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
           ) : (
             <>
               Отправить заявку
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+              <ArrowRight className="size-4" aria-hidden />
             </>
           )}
         </button>
-        <span className="inline-flex items-center gap-1.5 text-[0.72rem] text-graphite/45">
+        <span className="inline-flex items-center gap-1.5 text-[0.75rem] text-ink-muted">
           <ShieldCheck className="size-3.5" aria-hidden />
           Данные не передаются третьим лицам
         </span>
