@@ -16,13 +16,13 @@ type ChatMessage = {
 };
 
 const GREETING =
-  "Здравствуйте! Я AI-консультант команды разработки. Помогу разобраться с вашей задачей, подобрать подходящее решение и сориентировать по стоимости. Что планируете разработать?";
+  "Здравствуйте! Я AI-консультант технологической команды. Помогу выбрать между разработкой нового продукта и обслуживанием существующего, объясню состав тарифов и сориентирую по стоимости. Что вам ближе: создать новое решение или взять на сопровождение то, что уже работает?";
 
 const SUGGESTIONS = [
-  "Сколько стоит Telegram-бот?",
-  "Нужен AI-агент для поддержки",
-  "Хочу автоматизировать заявки",
-  "Нужен сайт для компании",
+  "Нужен новый сайт или сервис",
+  "Уже есть проект — нужно обслуживание",
+  "Что входит в тариф Business?",
+  "Сколько стоит поддержка сервера?",
 ];
 
 let messageCounter = 0;
@@ -226,35 +226,17 @@ export function AIConsultant() {
   return (
     <>
       <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-3 md:bottom-6 md:right-6">
-        <AnimatePresence>
-          {open ? null : (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 8 }}
-              className="hidden md:block"
-            >
-              <span className="rounded-full border border-muted/20 bg-graphite/90 px-3 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted backdrop-blur">
-                AI-консультант
-              </span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-label={open ? "Закрыть AI-консультанта" : "Открыть AI-консультанта"}
-          className="group relative flex size-14 items-center justify-center rounded-full bg-emerald text-graphite shadow-[0_10px_40px_-12px_rgba(32,201,130,0.55)] transition-transform hover:scale-105 active:scale-95"
+          className="group relative flex size-13 items-center justify-center rounded-full bg-lime text-ink shadow-[0_10px_30px_-10px_rgba(216,244,92,0.7)] transition-colors hover:bg-[#c9e84f]"
         >
           {open ? (
             <X className="size-5" aria-hidden />
           ) : (
-            <>
-              <span className="absolute inset-0 rounded-full border border-emerald/40 animate-ping opacity-20" aria-hidden />
-              <Sparkles className="size-5" aria-hidden />
-            </>
+            <Sparkles className="size-5" aria-hidden />
           )}
         </button>
       </div>
@@ -266,25 +248,25 @@ export function AIConsultant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-0 bottom-0 z-40 flex h-[86dvh] flex-col overflow-hidden rounded-t-2xl border border-muted/20 bg-graphite shadow-2xl sm:inset-x-auto sm:bottom-24 sm:right-6 sm:h-[min(38rem,80vh)] sm:w-[24.5rem] sm:rounded-2xl"
+            className="fixed inset-x-0 bottom-0 z-40 flex h-[86dvh] flex-col overflow-hidden rounded-t-2xl border border-line bg-surface shadow-2xl sm:inset-x-auto sm:bottom-24 sm:right-6 sm:h-[min(38rem,80vh)] sm:w-[24.5rem] sm:rounded-2xl"
             role="dialog"
             aria-label="AI-консультант"
           >
-            <div className="flex items-center justify-between gap-3 border-b border-muted/15 bg-forest/60 px-4 py-3.5">
+            <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-ink-deep px-4 py-3.5 text-white">
               <div className="flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-full border border-emerald/30 bg-emerald/10">
-                  <Sparkles className="size-4 text-emerald" aria-hidden />
+                <span className="flex size-9 items-center justify-center rounded-lg bg-white/10">
+                  <Sparkles className="size-4 text-lime" aria-hidden />
                 </span>
                 <div>
-                  <p className="text-[0.88rem] font-medium text-bone">AI-консультант</p>
-                  <p className="flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-muted">
+                  <p className="text-[0.88rem] font-semibold text-white">AI-консультант</p>
+                  <p className="flex items-center gap-1.5 text-[0.72rem] text-white/50">
                     <span
                       className={cn(
                         "size-1.5 rounded-full",
-                        disabled ? "bg-amber-400" : streaming ? "bg-emerald animate-pulse" : "bg-emerald",
+                        disabled ? "bg-amber-500" : streaming ? "bg-lime animate-pulse" : "bg-lime",
                       )}
                     />
-                    {disabled ? "офлайн" : streaming ? "печатает" : "online"}
+                    {disabled ? "офлайн" : streaming ? "печатает" : "на связи"}
                   </p>
                 </div>
               </div>
@@ -292,7 +274,7 @@ export function AIConsultant() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Закрыть чат"
-                className="flex size-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-muted/10 hover:text-bone"
+                className="flex size-8 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white"
               >
                 <X className="size-4" aria-hidden />
               </button>
@@ -308,18 +290,18 @@ export function AIConsultant() {
                     className={cn(
                       "max-w-[85%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-[0.85rem] leading-relaxed",
                       message.role === "user"
-                        ? "rounded-br-sm bg-emerald text-graphite"
-                        : "rounded-bl-sm border border-muted/15 bg-forest/70 text-bone/90",
+                        ? "rounded-br-sm bg-ink text-white"
+                        : "rounded-bl-sm border border-line bg-surface-muted text-ink",
                     )}
                   >
                     {message.content || (
-                      <span className="flex items-center gap-1.5 text-muted">
+                      <span className="flex items-center gap-1.5 text-ink-muted">
                         <Loader2 className="size-3.5 animate-spin" aria-hidden />
                         Думаю…
                       </span>
                     )}
                     {message.leadId ? (
-                      <span className="mt-2 block rounded-lg border border-emerald/25 bg-emerald/10 px-2.5 py-1.5 font-mono text-[0.68rem] text-emerald">
+                      <span className="mt-2 block rounded-lg border border-success/30 bg-success-soft px-2.5 py-1.5 text-[0.74rem] font-medium text-success">
                         Заявка № {message.leadId} создана
                       </span>
                     ) : null}
@@ -328,10 +310,10 @@ export function AIConsultant() {
               ))}
 
               {error ? (
-                <div className="rounded-xl border border-amber-400/25 bg-amber-400/5 px-3 py-2.5 text-[0.78rem] leading-relaxed text-amber-200">
+                <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-[0.78rem] leading-relaxed text-amber-800">
                   {error}
                   {error.includes("недоступен") ? (
-                    <Link href="/contacts#form" className="mt-1 block text-emerald underline underline-offset-2">
+                    <Link href="/contacts#form" className="mt-1 block text-brand underline underline-offset-2">
                       Перейти к форме заявки
                     </Link>
                   ) : null}
@@ -345,7 +327,7 @@ export function AIConsultant() {
                       key={suggestion}
                       type="button"
                       onClick={() => send(suggestion)}
-                      className="rounded-full border border-muted/25 px-3 py-1.5 text-left text-[0.75rem] text-bone/75 transition-colors hover:border-emerald/50 hover:text-emerald"
+                      className="rounded-lg border border-line px-3 py-1.5 text-left text-[0.76rem] text-ink-muted transition-colors hover:border-brand/40 hover:text-brand"
                     >
                       {suggestion}
                     </button>
@@ -356,7 +338,7 @@ export function AIConsultant() {
               <div ref={bottomRef} />
             </div>
 
-            <div className="border-t border-muted/15 bg-forest/40 px-3 pb-3 pt-2.5">
+            <div className="border-t border-line bg-surface-muted px-3 pb-3 pt-2.5">
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -379,13 +361,13 @@ export function AIConsultant() {
                   disabled={disabled}
                   placeholder={disabled ? "AI-консультант не настроен" : "Опишите задачу…"}
                   aria-label="Сообщение для AI-консультанта"
-                  className="max-h-28 min-h-10 flex-1 resize-none rounded-xl border border-muted/20 bg-graphite/80 px-3 py-2.5 text-[0.85rem] text-bone outline-none transition-colors placeholder:text-muted/60 focus:border-emerald/60 disabled:opacity-60"
+                  className="max-h-28 min-h-10 flex-1 resize-none rounded-lg border border-line-strong bg-surface px-3 py-2.5 text-[0.85rem] text-ink outline-none transition-colors placeholder:text-ink-muted/60 focus:border-brand disabled:opacity-60"
                 />
                 <button
                   type="submit"
                   disabled={streaming || disabled || !input.trim()}
                   aria-label="Отправить сообщение"
-                  className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-emerald text-graphite transition-opacity disabled:opacity-40"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-ink text-lime transition-opacity disabled:opacity-40"
                 >
                   {streaming ? (
                     <Loader2 className="size-4 animate-spin" aria-hidden />
@@ -396,9 +378,9 @@ export function AIConsultant() {
                   )}
                 </button>
               </form>
-              <p className="mt-2 text-center text-[0.62rem] leading-snug text-muted/60">
+              <p className="mt-2 text-center text-[0.68rem] leading-snug text-ink-muted">
                 Оценка предварительная и не является коммерческим предложением.{" "}
-                <Link href="/privacy" className="underline underline-offset-2 hover:text-muted">
+                <Link href="/privacy" className="underline underline-offset-2 hover:text-brand">
                   Политика
                 </Link>
               </p>

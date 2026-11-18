@@ -1,77 +1,134 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LinkButton } from "@/components/ui/Button";
-import { featuredPrices, formatPrice, pricingNotes } from "@/config/pricing";
-import { Reveal } from "@/components/ui/Reveal";
+import { formatPrice, priceItems, pricingNotes } from "@/config/pricing";
+import { cn } from "@/lib/utils";
+
+const planIds = ["landing", "corporate-site", "web-app"];
 
 export function PricingPreview() {
-  const items = featuredPrices();
+  const plans = planIds.flatMap((id) => priceItems.filter((item) => item.id === id));
 
   return (
-    <section className="bg-bone py-16 text-graphite md:py-24">
+    <section id="prices" className="scroll-mt-24 bg-surface-muted py-14 md:py-28">
       <div className="container-page">
         <SectionHeading
-          tone="light"
-          index="04"
-          eyebrow="Услуги и цены"
-          title="Понятные стартовые цены"
-          description="Ниже — минимальная стоимость типового объёма. Итог зависит от задачи: количества экранов, интеграций и требований к надёжности."
+          eyebrow="Пакеты разработки"
+          title="Понятные пакеты. Без скрытых строк."
+          description="Стартовая стоимость типового объёма. Точную смету фиксируем после брифа — бесплатно и без обязательств."
           align="between"
         />
 
-        <div className="mt-10 grid border-t border-graphite/15 md:mt-14">
-          {items.map((item, index) => (
-            <Reveal key={item.id} delay={index * 0.03}>
-              <div className="group grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 border-b border-graphite/15 py-4 transition-colors hover:bg-graphite/[0.025] md:grid-cols-[2.2fr_3fr_auto] md:items-center md:px-2">
-                <div className="flex items-baseline gap-3">
-                  <span className="hidden font-mono text-[0.62rem] text-graphite/30 md:block">
-                    {String(index + 1).padStart(2, "0")}
+        <div className="hide-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overscroll-x-contain px-5 pb-1 pt-4 md:mx-0 md:mt-10 md:grid md:gap-4 md:overflow-visible md:px-0 md:pt-0 lg:grid-cols-3">
+          {plans.map((plan, index) => {
+            const featured = index === 1;
+            return (
+              <div
+                key={plan.id}
+                className={cn(
+                  "relative flex w-[86%] shrink-0 snap-start flex-col rounded-2xl border p-5 md:w-auto md:p-7",
+                  plan.id === "landing" && "border-lime/70 ring-1 ring-lime/40",
+                  featured
+                    ? "border-ink-deep bg-ink-deep text-white shadow-panel"
+                    : "border-line bg-surface",
+                )}
+              >
+                {plan.id === "landing" ? (
+                  <span className="absolute -top-3 right-5 -rotate-3 rounded-full bg-lime px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.06em] text-ink shadow-[0_8px_20px_-10px_rgba(0,0,0,0.7)]">
+                    −30% на лендинг
                   </span>
-                  <h3 className="font-display text-[0.98rem] font-medium text-graphite">{item.title}</h3>
+                ) : null}
+                <div className="flex items-center justify-between gap-3">
+                  <p
+                    className={cn(
+                      "text-[0.72rem] font-semibold uppercase tracking-[0.14em]",
+                      featured ? "text-lime" : "text-ink-muted",
+                    )}
+                  >
+                    {plan.title}
+                  </p>
+                  {featured ? (
+                    <span className="rounded-full bg-lime px-2.5 py-1 text-[0.66rem] font-bold uppercase tracking-[0.08em] text-ink">
+                      Чаще всего
+                    </span>
+                  ) : (
+                    <span className="text-[0.72rem] text-ink-muted">0{index + 1}</span>
+                  )}
                 </div>
-                <p className="col-span-2 text-[0.82rem] leading-relaxed text-graphite/55 md:col-span-1 md:pr-6">
-                  {item.summary}
+
+                <p
+                  className={cn(
+                    "mt-4 font-display text-[1.85rem] font-semibold tracking-tight md:mt-5 md:text-[2rem]",
+                    featured ? "text-white" : "text-ink",
+                  )}
+                >
+                  {formatPrice(plan.price)}
                 </p>
-                <div className="text-right">
-                  <span className="whitespace-nowrap font-mono text-[0.8rem] text-graphite">
-                    {formatPrice(item.price)}
-                  </span>
+                <p className={cn("mt-2 text-[0.9rem] leading-relaxed", featured ? "text-white/55" : "text-ink-muted")}>
+                  {plan.summary}
+                </p>
+
+                {plan.id === "landing" ? (
+                  <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-lime/15 px-2.5 py-1 text-[0.76rem] font-semibold text-ink">
+                    Скидку 30% применяем в смете на этот пакет
+                  </p>
+                ) : null}
+
+                <ul className={cn("mt-5 flex flex-col gap-2 border-t pt-5 md:mt-6 md:gap-2.5 md:pt-6", featured ? "border-white/10" : "border-line")}>
+                  {plan.details.map((detail) => (
+                    <li key={detail} className="flex gap-2.5">
+                      <Check
+                        className={cn("mt-0.5 size-4 shrink-0", featured ? "text-lime" : "text-brand")}
+                        aria-hidden
+                      />
+                      <span className={cn("text-[0.85rem] leading-snug", featured ? "text-white/70" : "text-ink-muted")}>
+                        {detail}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-auto pt-5 md:pt-7">
+                  <LinkButton
+                    href="/contacts"
+                    variant={featured ? "lime" : "secondary"}
+                    withArrow
+                    className="w-full"
+                  >
+                    Обсудить проект
+                  </LinkButton>
                 </div>
               </div>
-            </Reveal>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="mt-8 flex flex-col justify-between gap-6 md:flex-row md:items-start">
-          <ul className="max-w-2xl space-y-1.5">
-            {pricingNotes.slice(0, 2).map((note) => (
-              <li key={note} className="flex gap-2.5 text-[0.78rem] leading-relaxed text-graphite/50">
-                <span className="mt-1.5 size-1 shrink-0 rounded-full bg-[#0c8a58]" aria-hidden />
-                {note}
-              </li>
-            ))}
-          </ul>
-          <div className="flex shrink-0 items-center gap-3">
-            <LinkButton href="/pricing" variant="light" withArrow>
-              Полный прайс-лист
-            </LinkButton>
+        <div className="mt-6 flex flex-col gap-4 rounded-xl border border-line bg-surface p-5 md:flex-row md:items-center md:justify-between md:px-6">
+          <div>
+            <p className="text-[0.9rem] font-semibold text-ink">
+              Нужен другой объём: веб-приложение, AI, интеграции?
+            </p>
+            <p className="mt-1 text-[0.82rem] text-ink-muted">
+              {pricingNotes[0]} {pricingNotes[2]}
+            </p>
           </div>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 border-t border-graphite/15 pt-4">
-          {["Смета до старта", "Оплата по этапам", "Оценка бесплатно"].map((item) => (
-            <span key={item} className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-graphite/40">
-              {item}
-            </span>
-          ))}
-          <Link
-            href="/contacts"
-            className="ml-auto inline-flex items-center gap-1 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-[#0c8a58] hover:underline"
-          >
-            Получить оценку
-            <ArrowUpRight className="size-3" aria-hidden />
-          </Link>
+          <div className="flex shrink-0 flex-wrap items-center gap-4">
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-1 text-[0.85rem] font-semibold text-ink hover:text-brand"
+            >
+              Полный прайс-лист
+              <ArrowRight className="size-3.5" aria-hidden />
+            </Link>
+            <Link
+              href="/maintenance"
+              className="inline-flex items-center gap-1 text-[0.85rem] font-semibold text-brand hover:text-brand-dark"
+            >
+              Поддержка от 1 490 ₽/мес
+              <ArrowRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

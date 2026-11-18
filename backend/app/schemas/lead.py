@@ -20,6 +20,10 @@ DIRECTIONS = (
     "automation",
     "chatbots",
     "voice-ai",
+    "website-maintenance",
+    "server-administration",
+    "database-management",
+    "technical-support",
     "other",
 )
 

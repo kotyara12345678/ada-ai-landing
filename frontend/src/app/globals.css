@@ -1,33 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --color-graphite: #101512;
-  --color-forest: #19231e;
-  --color-moss: #263b30;
-  --color-emerald: #20c982;
-  --color-bone: #f4f7f5;
-  --color-muted: #9baaa1;
+  /* База */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f3f4f2;
+  --color-ink: #0a0f1a;
+  --color-ink-deep: #070b14;
+  --color-ink-soft: #121a29;
+  --color-ink-muted: #5b6472;
 
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, monospace;
+  /* Акценты */
+  --color-brand: #1e4bff;
+  --color-brand-dark: #0f35db;
+  --color-brand-soft: #e7ecff;
+  --color-lime: #d8f45c;
+  --color-accent-violet: #7a5cff;
+  --color-accent-teal: #0bb5a3;
+  --color-accent-green: #16a36a;
 
-  --text-display: clamp(2.5rem, 6vw, 4.75rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.035em;
+  /* Подложки */
+  --color-tint-blue: #e9eeff;
+  --color-tint-violet: #f0ecff;
+  --color-tint-teal: #e3f7f4;
 
-  --text-h2: clamp(1.85rem, 3.6vw, 3rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.03em;
+  --color-success: #16a36a;
+  --color-success-soft: #ecf8f2;
+  --color-line: #e4e7ec;
+  --color-line-strong: #cbd2dc;
 
-  --text-h3: clamp(1.25rem, 2vw, 1.6rem);
-  --text-h3--line-height: 1.2;
-  --text-h3--letter-spacing: -0.015em;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope Variable", "Inter Variable", ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-display: clamp(2.6rem, 5.6vw, 5rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.045em;
+
+  --text-h2: clamp(1.7rem, 4vw, 3.35rem);
+  --text-h2--line-height: 1.02;
+  --text-h2--letter-spacing: -0.038em;
+
+  --text-h3: clamp(1.2rem, 1.6vw, 1.5rem);
+  --text-h3--line-height: 1.22;
+  --text-h3--letter-spacing: -0.02em;
 }
 
 @layer base {
   * {
-    border-color: color-mix(in srgb, var(--color-muted) 22%, transparent);
+    border-color: var(--color-line);
   }
 
   html {
@@ -36,8 +56,8 @@
   }
 
   body {
-    background-color: var(--color-graphite);
-    color: var(--color-bone);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
@@ -45,13 +65,13 @@
   }
 
   ::selection {
-    background: var(--color-emerald);
-    color: var(--color-graphite);
+    background: var(--color-lime);
+    color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-emerald);
-    outline-offset: 3px;
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
   }
 
   h1,
@@ -59,6 +79,7 @@
   h3,
   h4 {
     font-family: var(--font-display);
+    font-weight: 650;
     text-wrap: balance;
   }
 
@@ -70,48 +91,54 @@
 @layer utilities {
   .container-page {
     width: 100%;
-    max-width: 84rem;
+    max-width: 80rem;
     margin-inline: auto;
     padding-inline: 1.25rem;
   }
 
   @media (min-width: 768px) {
     .container-page {
-      padding-inline: 2.5rem;
+      padding-inline: 2rem;
     }
   }
 
   @media (min-width: 1280px) {
     .container-page {
-      padding-inline: 3.5rem;
+      padding-inline: 2.5rem;
     }
   }
 
   .eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
+    color: var(--color-brand);
   }
 
-  /* Тонкая техническая сетка: используется дозированно, на тёмных секциях */
-  .grid-lines {
+  .eyebrow-invert {
+    color: var(--color-lime);
+  }
+
+  .shadow-card {
+    box-shadow: 0 1px 2px rgba(10, 15, 26, 0.05), 0 18px 40px -28px rgba(10, 15, 26, 0.4);
+  }
+
+  .shadow-panel {
+    box-shadow: 0 2px 4px rgba(7, 11, 20, 0.08), 0 40px 80px -40px rgba(7, 11, 20, 0.7);
+  }
+
+  /* Сетка для тёмных секций */
+  .tech-grid {
     background-image:
-      linear-gradient(to right, rgba(155, 170, 161, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(155, 170, 161, 0.07) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
     background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
   }
 
-  .noise {
-    background-image: radial-gradient(rgba(244, 247, 245, 0.045) 0.5px, transparent 0.5px);
-    background-size: 4px 4px;
-  }
-
-  .text-gradient {
-    background: linear-gradient(100deg, #f4f7f5 15%, #9ee7c4 55%, #20c982 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .mask-fade {
+    mask-image: radial-gradient(ellipse at center, black 35%, transparent 80%);
   }
 
   .hide-scrollbar::-webkit-scrollbar {
@@ -121,6 +148,73 @@
   .hide-scrollbar {
     scrollbar-width: none;
   }
+
+  .text-lime {
+    color: var(--color-lime);
+  }
+}
+
+/* Аккуратные микроанимации */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 240;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes grow-bar {
+  from {
+    transform: scaleY(0.12);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.animate-float {
+  animation: float-soft 9s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-soft 13s ease-in-out infinite;
+}
+
+.animate-dot {
+  animation: pulse-dot 2.6s ease-in-out infinite;
+}
+
+.animate-draw {
+  stroke-dasharray: 240;
+  animation: draw-line 2.4s ease-out forwards;
+}
+
+.animate-grow {
+  transform-origin: bottom;
+  animation: grow-bar 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -133,5 +227,16 @@
   *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .animate-float,
+  .animate-float-slow,
+  .animate-dot,
+  .animate-draw,
+  .animate-grow {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    stroke-dashoffset: 0;
   }
 }

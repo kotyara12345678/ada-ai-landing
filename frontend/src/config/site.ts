@@ -5,20 +5,19 @@
  */
 export const site = {
   name: "ADA",
-  legalName: "ADA — команда разработки",
-  tagline: "Разработка ПО, AI-решения и автоматизация бизнеса",
+  legalName: "ADA — технологическая команда",
+  tagline: "Разработка и техническое сопровождение IT-продуктов для бизнеса",
   description:
-    "Разрабатываем сайты, программное обеспечение и AI-решения, которые автоматизируют процессы, упрощают работу и помогают бизнесу расти.",
+    "Технологическая команда разработки и технического сопровождения IT-продуктов для бизнеса: сайты, backend, AI, автоматизация, администрирование серверов и поддержка.",
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ?? "https://ada-ai.ru",
   locale: "ru_RU",
   lang: "ru",
 
   contacts: {
     // Замените на реальный аккаунт перед публикацией
-    telegram: "https://t.me/savva_toch",
-    telegramHandle: "@savva_toch",
+    telegram: "https://t.me/Savvachca",
+    telegramHandle: "@Savvachca",
     email: "savva.toch@gmail.com",
-    phone: "",
     /** Город/регион для Schema.org. Формат: "Ru" или "Moscow, RU" */
     areaServed: "RU",
     country: "RU",
@@ -34,20 +33,30 @@ export const site = {
 
   nav: [
     { label: "Услуги", href: "/web-development" },
-    { label: "Проекты", href: "/portfolio" },
+    { label: "Обслуживание", href: "/maintenance" },
     { label: "Цены", href: "/pricing" },
     { label: "Блог", href: "/blog" },
     { label: "О нас", href: "/about" },
     { label: "Контакты", href: "/contacts" },
   ],
 
+  /** Направления разработки для меню и подвала */
   footerServices: [
     { label: "Web-разработка", href: "/web-development" },
     { label: "Backend и API", href: "/backend" },
     { label: "AI-разработка", href: "/ai-development" },
     { label: "Автоматизация", href: "/automation" },
     { label: "Чат-боты", href: "/chatbots" },
-    { label: "Голосовые AI-агенты", href: "/voice-ai" },
+    { label: "Голосовой AI", href: "/voice-ai" },
+  ],
+
+  /** Направления технического обслуживания */
+  footerMaintenance: [
+    { label: "Обслуживание IT-продуктов", href: "/maintenance" },
+    { label: "Поддержка сайтов", href: "/website-maintenance" },
+    { label: "Администрирование серверов", href: "/server-administration" },
+    { label: "Управление базами данных", href: "/database-management" },
+    { label: "Техническая поддержка", href: "/technical-support" },
   ],
 } as const;
 

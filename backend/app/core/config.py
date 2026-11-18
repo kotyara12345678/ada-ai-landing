@@ -58,6 +58,16 @@ class Settings(BaseSettings):
     # --- Логирование ---
     log_level: str = "INFO"
 
+    @field_validator("llm_provider", mode="before")
+    @classmethod
+    def normalize_llm_provider(cls, value: object) -> object:
+        """«openai_compatible» — псевдоним OpenAI-совместимого API (OpenRouter, Polza и др.)."""
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"openai_compatible", "openai-compatible", "openai_compat", "compatible"}:
+                return "openai"
+        return value
+
     @field_validator("llm_base_url")
     @classmethod
     def strip_base_url(cls, value: str) -> str:

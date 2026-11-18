@@ -59,23 +59,21 @@ export default async function ArticlePage({ params }: PageProps) {
       />
 
       <article>
-        <header className="border-b border-muted/15 pt-28 md:pt-32">
-          <div className="container-page max-w-4xl pb-10 md:pb-14">
+        <header className="border-b border-line bg-surface">
+          <div className="container-page max-w-4xl py-8 md:py-12">
             <Breadcrumbs
               items={[
                 { name: "Блог", path: "/blog" },
                 { name: article.title, path: `/blog/${article.slug}` },
               ]}
             />
-            <div className="mt-7 flex flex-wrap items-center gap-3 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-muted/60">
-              <span className="text-emerald/80">{article.category}</span>
-              <span className="size-1 rounded-full bg-muted/30" />
+            <div className="mt-5 flex flex-wrap items-center gap-2.5 text-[0.75rem] text-ink-muted">
+              <span className="font-medium text-brand">{article.category}</span>
+              <span className="size-1 rounded-full bg-line-strong" />
               <time dateTime={article.publishedAt}>{formatDate(article.publishedAt)}</time>
-              <span className="size-1 rounded-full bg-muted/30" />
-              <span>{article.readingTime} мин чтения</span>
             </div>
-            <h1 className="mt-5 text-h2 text-bone">{article.h1}</h1>
-            <p className="mt-5 max-w-2xl text-[1rem] leading-relaxed text-muted">{article.description}</p>
+            <h1 className="mt-4 text-h2 text-ink">{article.h1}</h1>
+            <p className="mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-ink-muted">{article.description}</p>
           </div>
         </header>
 
@@ -86,7 +84,7 @@ export default async function ArticlePage({ params }: PageProps) {
                 return (
                   <h2
                     key={index}
-                    className="mt-10 mb-3 font-display text-[1.35rem] font-semibold tracking-tight text-bone first:mt-0"
+                    className="mt-9 mb-3 font-display text-[1.25rem] font-semibold tracking-tight text-ink first:mt-0"
                   >
                     {block.text}
                   </h2>
@@ -94,7 +92,7 @@ export default async function ArticlePage({ params }: PageProps) {
               }
               if (block.type === "p") {
                 return (
-                  <p key={index} className="mb-4 text-[0.96rem] leading-[1.75] text-bone/75">
+                  <p key={index} className="mb-4 text-[0.94rem] leading-[1.75] text-ink-muted">
                     {block.text}
                   </p>
                 );
@@ -103,8 +101,8 @@ export default async function ArticlePage({ params }: PageProps) {
                 return (
                   <ul key={index} className="mb-5 space-y-2">
                     {block.items.map((item) => (
-                      <li key={item} className="flex gap-3 text-[0.94rem] leading-relaxed text-bone/75">
-                        <span className="mt-2.5 size-1 shrink-0 rounded-full bg-emerald/70" aria-hidden />
+                      <li key={item} className="flex gap-3 text-[0.92rem] leading-relaxed text-ink-muted">
+                        <span className="mt-2.5 size-1 shrink-0 rounded-full bg-brand/60" aria-hidden />
                         {item}
                       </li>
                     ))}
@@ -115,8 +113,8 @@ export default async function ArticlePage({ params }: PageProps) {
                 return (
                   <ol key={index} className="mb-5 space-y-2.5">
                     {block.items.map((item, itemIndex) => (
-                      <li key={item} className="flex gap-3 text-[0.94rem] leading-relaxed text-bone/75">
-                        <span className="mt-0.5 font-mono text-[0.72rem] text-emerald/70">
+                      <li key={item} className="flex gap-3 text-[0.92rem] leading-relaxed text-ink-muted">
+                        <span className="mt-0.5 text-[0.75rem] font-semibold text-brand">
                           {String(itemIndex + 1).padStart(2, "0")}
                         </span>
                         {item}
@@ -128,18 +126,18 @@ export default async function ArticlePage({ params }: PageProps) {
               return (
                 <blockquote
                   key={index}
-                  className="my-7 border-l-2 border-emerald/60 pl-5 text-[1.02rem] italic leading-relaxed text-bone/80"
+                  className="my-6 border-l-2 border-brand/50 pl-4 text-[0.98rem] italic leading-relaxed text-ink"
                 >
                   {block.text}
                 </blockquote>
               );
             })}
 
-            <div className="mt-12 flex flex-col gap-5 rounded-xl border border-muted/15 bg-forest/25 p-6">
+            <div className="mt-10 flex flex-col gap-4 rounded-xl border border-line bg-surface-muted p-5">
               <div>
-                <p className="font-display text-[1.05rem] text-bone">Обсудить задачу?</p>
-                <p className="mt-1 text-[0.85rem] leading-relaxed text-muted">
-                  Разберём ваш случай, предложим архитектуру и назовём стоимость. Оценка бесплатна.
+                <p className="font-display text-[1rem] font-semibold text-ink">Обсудить задачу?</p>
+                <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-muted">
+                  Разберём ваш случай, предложим решение и назовём стоимость. Оценка бесплатна.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">
@@ -148,17 +146,17 @@ export default async function ArticlePage({ params }: PageProps) {
                 </LinkButton>
                 <Link
                   href="/pricing"
-                  className="inline-flex h-11 items-center rounded-full border border-muted/30 px-5 text-sm text-bone transition-colors hover:border-emerald hover:text-emerald"
+                  className="inline-flex h-11 items-center rounded-lg border border-line-strong px-5 text-[0.9rem] text-ink transition-colors hover:border-brand hover:text-brand"
                 >
                   Цены
                 </Link>
               </div>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-muted/15 pt-6">
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-5">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-muted transition-colors hover:text-bone"
+                className="inline-flex items-center gap-2 text-[0.84rem] text-ink-muted transition-colors hover:text-brand"
               >
                 <ArrowLeft className="size-3" aria-hidden />
                 Все материалы
@@ -168,10 +166,10 @@ export default async function ArticlePage({ params }: PageProps) {
 
           <aside className="hidden lg:block">
             <div className="sticky top-28">
-              <p className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-muted/50">Содержание</p>
-              <ul className="mt-3 space-y-2 border-l border-muted/15 pl-4">
+              <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">Содержание</p>
+              <ul className="mt-3 space-y-2 border-l border-line pl-4">
                 {headings.map((heading) => (
-                  <li key={heading.text} className="text-[0.78rem] leading-snug text-muted/70">
+                  <li key={heading.text} className="text-[0.81rem] leading-snug text-ink-muted">
                     {heading.text}
                   </li>
                 ))}
@@ -182,25 +180,25 @@ export default async function ArticlePage({ params }: PageProps) {
       </article>
 
       {related.length > 0 ? (
-        <section className="border-t border-muted/15 py-12 md:py-16">
+        <section className="border-t border-line bg-surface-muted py-10 md:py-14">
           <div className="container-page">
-            <h2 className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted/60">
+            <h2 className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] text-ink-muted">
               Читайте также
             </h2>
-            <div className="mt-5 grid gap-4 md:grid-cols-2">
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
               {related.map((item) => (
                 <Link
                   key={item.slug}
                   href={`/blog/${item.slug}`}
-                  className="group flex items-start justify-between gap-4 border-t border-muted/15 pt-4 transition-colors hover:border-emerald/40"
+                  className="group flex items-start justify-between gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-brand/40"
                 >
                   <div>
-                    <p className="font-display text-[0.95rem] text-bone transition-colors group-hover:text-emerald">
+                    <p className="font-display text-[0.95rem] font-semibold text-ink transition-colors group-hover:text-brand">
                       {item.title}
                     </p>
-                    <p className="mt-1 text-[0.8rem] text-muted">{item.description}</p>
+                    <p className="mt-1 text-[0.81rem] text-ink-muted">{item.description}</p>
                   </div>
-                  <ArrowUpRight className="size-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+                  <ArrowUpRight className="size-4 shrink-0 text-ink-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
                 </Link>
               ))}
             </div>

@@ -8,9 +8,9 @@ import { LinkButton } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata: Metadata = buildMetadata({
-  title: "О подходе к разработке | ADA",
+  title: "О команде и подходе к работе | ADA",
   description:
-    "Как мы работаем: разбираем задачу, выбираем архитектуру, фиксируем стоимость и сроки, разрабатываем, тестируем и передаём продукт. Без вымышленной истории компании.",
+    "Технологическая команда разработки и технического сопровождения: как мы разбираем задачу, выбираем архитектуру, фиксируем стоимость и обслуживаем продукт после запуска.",
   path: "/about",
 });
 
@@ -36,8 +36,8 @@ const principles = [
     text: "После передачи проекта вы получаете исходники, доступы и документацию. Мы не создаём искусственную зависимость от нас.",
   },
   {
-    title: "Ответственность за результат",
-    text: "Проверяем не только «работает у разработчика», но и поведение на мобильных, обработку ошибок и понятность интерфейса.",
+    title: "Ответственность за эксплуатацию",
+    text: "Запуск — не финал. Следим за доступностью, обновлениями и резервными копиями, если продукт остаётся на сопровождении.",
   },
 ];
 
@@ -52,51 +52,49 @@ export default function AboutPage() {
         id="about-jsonld"
       />
 
-      <section className="relative overflow-hidden border-b border-muted/15 pt-28 md:pt-32">
-        <div className="pointer-events-none absolute inset-0 grid-lines opacity-30" aria-hidden />
-        <div className="container-page relative pb-14 md:pb-20">
+      <section className="border-b border-line bg-surface">
+        <div className="container-page py-8 md:py-12">
           <Breadcrumbs items={[{ name: "О нас", path: "/about" }]} />
-          <h1 className="mt-8 max-w-4xl text-h2 text-bone">
+          <h1 className="mt-6 max-w-4xl text-h2 text-ink">
             Технологии должны решать задачи, а не создавать новые
           </h1>
-          <div className="mt-8 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            <p className="max-w-2xl text-[1rem] leading-relaxed text-muted md:text-[1.05rem]">
-              Мы — команда разработки, которая занимается сайтами, серверной частью и AI-решениями.
-              Работаем с бизнесом напрямую: без посредников, длинных цепочек согласований и обещаний,
-              которые некому выполнять.
+          <div className="mt-7 grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <p className="max-w-2xl text-[0.98rem] leading-relaxed text-ink-muted md:text-[1.02rem]">
+              Мы — технологическая команда, которая занимается разработкой и техническим
+              сопровождением IT-продуктов: сайтов, веб-сервисов, серверной части, AI-решений и
+              автоматизации. Работаем с бизнесом напрямую, без посредников и длинных цепочек
+              согласований.
             </p>
-            <div className="border-l border-emerald/30 pl-5">
-              <p className="text-[0.88rem] leading-relaxed text-bone/75">
-                Не публикуем количество сотрудников, офисы и годы существования — эти сведения не влияют
-                на качество кода. Вместо этого показываем подход, проекты и то, как выглядит процесс.
+            <div className="rounded-xl border border-line bg-surface-muted p-5">
+              <p className="text-[0.88rem] leading-relaxed text-ink">
+                Не публикуем количество сотрудников, офисы и годы существования — эти сведения не
+                влияют на качество работы. Вместо этого показываем подход, состав услуг и то, как
+                выглядит процесс — от разбора задачи до эксплуатации.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-muted/15 py-14 md:py-20">
+      <section className="border-b border-line bg-surface py-12 md:py-16">
         <div className="container-page">
           <SectionHeading
-            index="01"
             eyebrow="Подход"
             title="Как устроена работа"
             description="Разбираем задачу до того, как писать код. Так дешевле: изменения в архитектуре на старте стоят меньше, чем переделка после запуска."
           />
 
-          <ol className="mt-10 grid gap-0 border-t border-muted/15 md:grid-cols-2 md:gap-x-14">
+          <ol className="mt-8 grid gap-3 md:grid-cols-2">
             {stages.map((stage, index) => (
               <Reveal key={stage.step} as="li" delay={index * 0.03}>
-                <div className="flex gap-5 border-b border-muted/15 py-6">
-                  <span className="font-mono text-[0.7rem] text-emerald/70">{stage.step}</span>
+                <div className="flex h-full gap-4 rounded-xl border border-line p-4">
+                  <span className="text-[0.8rem] font-semibold text-brand">{stage.step}</span>
                   <div>
-                    <div className="flex flex-wrap items-baseline gap-3">
-                      <h2 className="font-display text-[1.02rem] font-medium text-bone">{stage.title}</h2>
-                      <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-muted/50">
-                        {stage.duration}
-                      </span>
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                      <h2 className="text-[0.95rem] font-medium text-ink">{stage.title}</h2>
+                      <span className="text-[0.74rem] text-ink-muted">{stage.duration}</span>
                     </div>
-                    <p className="mt-1.5 text-[0.86rem] leading-relaxed text-muted">{stage.text}</p>
+                    <p className="mt-1 text-[0.84rem] leading-relaxed text-ink-muted">{stage.text}</p>
                   </div>
                 </div>
               </Reveal>
@@ -105,25 +103,20 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-bone py-14 text-graphite md:py-20">
+      <section className="border-b border-line bg-surface-muted py-12 md:py-16">
         <div className="container-page">
-          <SectionHeading
-            tone="light"
-            index="02"
-            eyebrow="Принципы"
-            title="Правила, которых придерживаемся"
-          />
-          <div className="mt-10 grid gap-x-12 gap-y-0 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionHeading eyebrow="Принципы" title="Правила, которых придерживаемся" />
+          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {principles.map((principle, index) => (
               <Reveal key={principle.title} delay={index * 0.03}>
-                <div className="border-t border-graphite/15 py-6">
-                  <span className="font-mono text-[0.62rem] text-graphite/30">
+                <div className="h-full rounded-xl border border-line bg-surface p-5">
+                  <span className="text-[0.74rem] font-semibold text-line-strong">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-2 font-display text-[1rem] font-semibold text-graphite">
-                    {principle.title}
-                  </h3>
-                  <p className="mt-1.5 text-[0.84rem] leading-relaxed text-graphite/60">{principle.text}</p>
+                  <h3 className="mt-1.5 text-[0.95rem] font-semibold text-ink">{principle.title}</h3>
+                  <p className="mt-1.5 text-[0.84rem] leading-relaxed text-ink-muted">
+                    {principle.text}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -131,23 +124,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-14 md:py-20">
-        <div className="container-page grid gap-8 border-t border-muted/15 pt-10 lg:grid-cols-[1fr_auto] lg:items-end">
+      <section className="bg-surface py-12 md:py-16">
+        <div className="container-page flex flex-col gap-6 border-t border-line pt-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h2 className="font-display text-[1.6rem] font-medium text-bone">Что можно обсудить</h2>
-            <p className="mt-2 max-w-xl text-[0.9rem] leading-relaxed text-muted">
-              Даже если у вас есть только идея — опишите её. Мы поможем определить объём первой версии
-              и скажем, с чего начать.
+            <h2 className="font-display text-[1.4rem] font-semibold text-ink">Что можно обсудить</h2>
+            <p className="mt-2 max-w-xl text-[0.9rem] leading-relaxed text-ink-muted">
+              Даже если у вас есть только идея — опишите её. Поможем определить объём первой версии
+              и скажем, с чего начать. Если продукт уже работает — начнём с аудита и тарифа
+              обслуживания.
             </p>
-            <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-muted/60">
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-[0.78rem] text-ink-muted">
               <span>Сайты и веб-приложения</span>
               <span>Backend и API</span>
               <span>AI-агенты</span>
-              <span>Автоматизация</span>
+              <span>Обслуживание и поддержка</span>
             </div>
           </div>
           <LinkButton href="/contacts" withArrow>
-            Обсудить проект
+            Обсудить задачу
           </LinkButton>
         </div>
       </section>

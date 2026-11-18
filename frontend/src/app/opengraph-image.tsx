@@ -17,8 +17,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          background: "#101512",
-          color: "#F4F7F5",
+          background: "#FFFFFF",
+          color: "#17212F",
           fontFamily: "sans-serif",
         }}
       >
@@ -28,33 +28,44 @@ export default function OpengraphImage() {
               width: 44,
               height: 44,
               borderRadius: 10,
-              border: "1px solid rgba(32,201,130,0.5)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              background: "rgba(32,201,130,0.08)",
+              background: "#2563EB",
+              color: "#FFFFFF",
+              fontSize: 22,
+              fontWeight: 600,
             }}
           >
-            <div style={{ width: 14, height: 14, borderRadius: 3, background: "#20C982" }} />
+            A
           </div>
-          <div style={{ fontSize: 30, letterSpacing: -0.5 }}>{site.name}</div>
-          <div style={{ fontSize: 16, color: "#9BAAA1", letterSpacing: 3, textTransform: "uppercase" }}>
-            dev studio
+          <div style={{ fontSize: 30, letterSpacing: -0.5, fontWeight: 600 }}>{site.name}</div>
+          <div style={{ fontSize: 15, color: "#657184", letterSpacing: 2, textTransform: "uppercase" }}>
+            разработка и обслуживание
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div style={{ fontSize: 76, lineHeight: 1.05, letterSpacing: -3, maxWidth: 900 }}>
-            Ваши идеи. Наши технологии.
+          <div style={{ fontSize: 68, lineHeight: 1.1, letterSpacing: -2.5, maxWidth: 960 }}>
+            Разрабатываем, запускаем и обслуживаем цифровые решения
           </div>
-          <div style={{ fontSize: 26, color: "#9BAAA1", maxWidth: 880, lineHeight: 1.4 }}>
-            Сайты, программное обеспечение и AI-решения для бизнеса
+          <div style={{ fontSize: 25, color: "#657184", maxWidth: 900, lineHeight: 1.4 }}>
+            Сайты, backend, AI и автоматизация. Техническое обслуживание IT-продуктов.
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 20, color: "#9BAAA1" }}>
-          <div>Web · Backend · AI · Automation</div>
-          <div style={{ color: "#20C982", letterSpacing: 2 }}>от 5 000 RUB</div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 20,
+            color: "#657184",
+            borderTop: "1px solid #E4E8EF",
+            paddingTop: 22,
+          }}
+        >
+          <div>Web · Backend · AI · Managed IT Services</div>
+          <div style={{ color: "#2563EB", fontWeight: 600 }}>обслуживание от 1 490 руб./мес.</div>
         </div>
       </div>
     ),
