@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LinkButton } from "@/components/ui/Button";
-import { formatPrice, priceItems, pricingNotes } from "@/config/pricing";
+import { formatPrice, priceItems } from "@/config/pricing";
 import { cn } from "@/lib/utils";
 
 const planIds = ["landing", "corporate-site", "web-app"];
@@ -108,9 +108,6 @@ export function PricingPreview() {
           <div>
             <p className="text-[0.9rem] font-semibold text-ink">
               Нужен другой объём: веб-приложение, AI, интеграции?
-            </p>
-            <p className="mt-1 text-[0.82rem] text-ink-muted">
-              {pricingNotes[0]} {pricingNotes[2]}
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-4">
