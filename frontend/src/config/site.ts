@@ -28,7 +28,7 @@ export const site = {
     yandexMetrikaId: process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID ?? "",
     googleAnalyticsId: process.env.NEXT_PUBLIC_GA_ID ?? "",
     googleSiteVerification: process.env.NEXT_PUBLIC_GSC_VERIFICATION ?? "",
-    yandexWebmaster: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION ?? "",
+    yandexWebmaster: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || "2ca6b3e6677fc127",
   },
 
   nav: [
