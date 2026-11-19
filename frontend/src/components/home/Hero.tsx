@@ -32,7 +32,7 @@ export function Hero() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[0.74rem] font-medium text-white/75">
               <span className="size-1.5 rounded-full bg-lime" aria-hidden />
-              Студия разработки и поддержки · ADA
+              Студия веб-разработки и AI-автоматизации · ADA
             </span>
 
             <h1 className="mt-6 text-display">

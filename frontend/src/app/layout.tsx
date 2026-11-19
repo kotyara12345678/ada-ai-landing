@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/ui/JsonLd";
 import { site } from "@/config/site";
 import { jsonLdOrganization, jsonLdWebSite } from "@/lib/seo";
 
-const defaultTitle = `${site.name} — разработка и техническое сопровождение IT-продуктов`;
+const defaultTitle = `${site.name} — студия веб-разработки и AI-автоматизации`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
