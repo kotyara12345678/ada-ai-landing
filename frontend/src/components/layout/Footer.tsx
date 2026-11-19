@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Mail, Send } from "lucide-react";
 import { site } from "@/config/site";
@@ -13,13 +12,9 @@ export function Footer() {
         <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[1.1fr_1.9fr] lg:gap-16">
           <div className="flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-2.5">
-              <Image
-                src="/brand/icon.png"
-                alt=""
-                width={72}
-                height={72}
-                className="size-9 rounded-md"
-              />
+              <span className="flex size-9 items-center justify-center rounded-md bg-lime font-display text-[1rem] font-bold text-ink">
+                A
+              </span>
               <span className="font-display text-[1.1rem] font-bold tracking-tight">{site.name}</span>
             </Link>
             <p className="max-w-xs text-[0.88rem] leading-relaxed text-white/50">
