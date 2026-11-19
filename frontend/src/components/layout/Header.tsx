@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -71,9 +72,14 @@ export function Header() {
     >
       <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]">
         <Link href="/" className="flex items-center gap-2.5" aria-label={`${site.name} — на главную`}>
-          <span className="flex size-9 items-center justify-center rounded-md bg-lime font-display text-[1rem] font-bold text-ink">
-            A
-          </span>
+          <Image
+            src="/brand/icon.png"
+            alt=""
+            width={72}
+            height={72}
+            priority
+            className="size-9 rounded-md"
+          />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[1.1rem] font-bold tracking-tight text-white">
               {site.name}
