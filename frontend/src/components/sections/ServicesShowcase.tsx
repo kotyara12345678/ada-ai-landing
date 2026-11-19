@@ -1,19 +1,38 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, Brain, Code, ServerCog } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { formatPrice } from "@/config/pricing";
 import { LinkButton } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 type ServiceGroup = {
+  number: string;
   badge: string;
   title: string;
   lead: string;
   items: { label: string; href: string }[];
   price: string;
   cta: { label: string; href: string };
+  icon: LucideIcon;
+  tone: {
+    card: string;
+    glow: string;
+    number: string;
+    icon: string;
+    badge: string;
+    title: string;
+    lead: string;
+    item: string;
+    itemDot: string;
+    divider: string;
+    price: string;
+    cta: string;
+  };
 };
 
 const groups: ServiceGroup[] = [
   {
+    number: "01",
     badge: "основное направление",
     title: "Сайты и веб-разработка",
     lead: "Фундамент бизнеса в интернете: от лендинга под кампанию до веб-системы с личным кабинетом.",
@@ -27,8 +46,24 @@ const groups: ServiceGroup[] = [
     ],
     price: formatPrice(7000),
     cta: { label: "Разработка сайтов", href: "/web-development" },
+    icon: Code,
+    tone: {
+      card: "border-ink-deep bg-ink-deep",
+      glow: "bg-lime/25",
+      number: "text-white/[0.07]",
+      icon: "bg-white/10 text-lime ring-1 ring-white/10",
+      badge: "bg-white/10 text-white/65",
+      title: "text-white",
+      lead: "text-white/55",
+      item: "text-white/70 hover:text-lime",
+      itemDot: "bg-lime/70",
+      divider: "border-white/10",
+      price: "text-lime",
+      cta: "bg-lime text-ink hover:bg-white",
+    },
   },
   {
+    number: "02",
     badge: "основное направление",
     title: "AI и автоматизация",
     lead: "AI-помощники и автоматизация процессов, которые снимают ручную работу и ускоряют ответы клиентам.",
@@ -41,9 +76,25 @@ const groups: ServiceGroup[] = [
       { label: "Внутренние AI-инструменты", href: "/ai-development" },
     ],
     price: formatPrice(12000),
-    cta: { label: "AI и автоматизация", href: "/ai-development" },
+    cta: { label: "AI-разработка", href: "/ai-development" },
+    icon: Brain,
+    tone: {
+      card: "border-lime bg-lime",
+      glow: "bg-white/40",
+      number: "text-ink/[0.08]",
+      icon: "bg-ink/10 text-ink",
+      badge: "bg-ink/10 text-ink/70",
+      title: "text-ink",
+      lead: "text-ink/70",
+      item: "text-ink/75 hover:text-ink",
+      itemDot: "bg-ink/40",
+      divider: "border-ink/15",
+      price: "text-ink",
+      cta: "bg-ink text-lime hover:bg-ink-deep",
+    },
   },
   {
+    number: "03",
     badge: "дополнительное направление",
     title: "Интеграции и IT-поддержка",
     lead: "Связываем сервисы между собой и держим продукт в рабочем состоянии после запуска.",
@@ -56,7 +107,22 @@ const groups: ServiceGroup[] = [
       { label: "Управление базами данных", href: "/database-management" },
     ],
     price: `${formatPrice(1490)}/мес`,
-    cta: { label: "Поддержка и тарифы", href: "/maintenance" },
+    cta: { label: "Тарифы", href: "/maintenance" },
+    icon: ServerCog,
+    tone: {
+      card: "border-line bg-tint-blue",
+      glow: "bg-brand/15",
+      number: "text-brand/10",
+      icon: "bg-white text-brand ring-1 ring-line",
+      badge: "bg-white/70 text-ink-muted",
+      title: "text-ink",
+      lead: "text-ink-muted",
+      item: "text-ink/80 hover:text-brand",
+      itemDot: "bg-brand/50",
+      divider: "border-line",
+      price: "text-ink",
+      cta: "bg-brand text-white hover:bg-brand-dark",
+    },
   },
 ];
 
@@ -70,9 +136,7 @@ export function ServicesShowcase() {
               <span className="h-px w-7 bg-brand" aria-hidden />
               <p className="eyebrow">Что мы делаем</p>
             </div>
-            <h2 className="mt-4 text-h2 text-ink">
-              Сайты и веб-разработка, усиленные AI
-            </h2>
+            <h2 className="mt-4 text-h2 text-ink">Сайты и веб-разработка, усиленные AI</h2>
             <p className="mt-4 max-w-xl text-[0.98rem] leading-relaxed text-ink-muted">
               Разработка сайтов и веб-приложений — основа работы студии. AI и автоматизация
               усиливают продукт, а интеграции и поддержка держат его в рабочем состоянии.
@@ -84,49 +148,118 @@ export function ServicesShowcase() {
         </div>
 
         <div className="mt-8 grid gap-3 sm:gap-4 md:grid-cols-3">
-          {groups.map((group, index) => (
-            <div
-              key={group.title}
-              className="flex flex-col border border-line bg-surface p-5 transition-shadow hover:shadow-card md:p-7"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <span className="font-display text-[0.8rem] font-semibold tracking-[0.18em] text-brand">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="rounded-full bg-surface-muted px-2.5 py-1 text-[0.64rem] font-medium uppercase tracking-[0.06em] text-ink-muted">
-                  {group.badge}
-                </span>
-              </div>
-
-              <h3 className="mt-4 text-h3 font-semibold text-ink">{group.title}</h3>
-              <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-muted">{group.lead}</p>
-
-              <ul className="mt-4 space-y-1.5">
-                {group.items.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="flex items-center gap-2 text-[0.86rem] leading-snug text-ink/85 transition-colors hover:text-brand"
-                    >
-                      <span className="size-1 shrink-0 rounded-full bg-brand/60" aria-hidden />
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-5 flex items-center justify-between gap-3 border-t border-line pt-4 md:mt-auto md:pt-5">
-                <span className="text-[0.8rem] font-semibold text-ink">{group.price}</span>
-                <Link
-                  href={group.cta.href}
-                  className="inline-flex items-center gap-1 text-[0.8rem] font-semibold text-brand hover:text-brand-dark"
+          {groups.map((group) => {
+            const Icon = group.icon;
+            return (
+              <div
+                key={group.title}
+                className={cn(
+                  "group relative flex flex-col overflow-hidden border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card md:p-6",
+                  group.tone.card,
+                )}
+              >
+                <div
+                  aria-hidden
+                  className={cn(
+                    "pointer-events-none absolute -right-14 -top-16 size-52 rounded-full blur-[70px]",
+                    group.tone.glow,
+                  )}
+                />
+                <span
+                  aria-hidden
+                  className={cn(
+                    "pointer-events-none absolute -top-4 right-3 font-display text-[4.5rem] font-bold leading-none tracking-tight md:text-[5.5rem]",
+                    group.tone.number,
+                  )}
                 >
-                  {group.cta.label}
-                  <ArrowUpRight className="size-3.5" aria-hidden />
-                </Link>
+                  {group.number}
+                </span>
+
+                <div className="relative flex items-center gap-2.5">
+                  <span
+                    className={cn(
+                      "flex size-10 shrink-0 items-center justify-center rounded-xl",
+                      group.tone.icon,
+                    )}
+                  >
+                    <Icon className="size-[1.15rem]" aria-hidden />
+                  </span>
+                  <span
+                    className={cn(
+                      "rounded-full px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.08em]",
+                      group.tone.badge,
+                    )}
+                  >
+                    {group.badge}
+                  </span>
+                </div>
+
+                <h3 className={cn("relative mt-4 text-h3 font-semibold", group.tone.title)}>
+                  {group.title}
+                </h3>
+                <p className={cn("relative mt-2 text-[0.86rem] leading-relaxed", group.tone.lead)}>
+                  {group.lead}
+                </p>
+
+                <ul className={cn("relative mt-4 border-t", group.tone.divider)}>
+                  {group.items.map((item) => (
+                    <li key={item.label} className={cn("border-b", group.tone.divider)}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "group/item flex items-center justify-between gap-2 py-1.5 text-[0.85rem] leading-snug transition-colors",
+                          group.tone.item,
+                        )}
+                      >
+                        <span className="flex items-center gap-2">
+                          <span
+                            className={cn("size-1 shrink-0 rounded-full", group.tone.itemDot)}
+                            aria-hidden
+                          />
+                          {item.label}
+                        </span>
+                        <ArrowRight
+                          className="size-3.5 shrink-0 -translate-x-1 opacity-0 transition-all group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                          aria-hidden
+                        />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="relative mt-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 pt-1 md:mt-auto md:pt-4">
+                  <div>
+                    <p
+                      className={cn(
+                        "text-[0.6rem] uppercase tracking-[0.12em] opacity-60",
+                        group.tone.title,
+                      )}
+                    >
+                      Стоимость
+                    </p>
+                    <p
+                      className={cn(
+                        "mt-0.5 whitespace-nowrap text-[1.05rem] font-semibold",
+                        group.tone.price,
+                      )}
+                    >
+                      {group.price}
+                    </p>
+                  </div>
+                  <Link
+                    href={group.cta.href}
+                    className={cn(
+                      "inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 py-2 text-[0.78rem] font-semibold transition-colors",
+                      group.tone.cta,
+                    )}
+                  >
+                    {group.cta.label}
+                    <ArrowRight className="size-3.5" aria-hidden />
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <p className="mt-5 text-[0.8rem] text-ink-muted">
