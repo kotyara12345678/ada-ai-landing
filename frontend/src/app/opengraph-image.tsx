@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/config/site";
 
@@ -8,18 +6,7 @@ export const alt = `${site.name} — ${site.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-function iconDataUrl(): string | null {
-  try {
-    const file = path.join(process.cwd(), "public", "brand", "icon-128.png");
-    return `data:image/png;base64,${fs.readFileSync(file).toString("base64")}`;
-  } catch {
-    return null;
-  }
-}
-
 export default function OpengraphImage() {
-  const icon = iconDataUrl();
-
   return new ImageResponse(
     (
       <div
@@ -36,26 +23,22 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          {icon ? (
-            <img src={icon} width={52} height={52} style={{ borderRadius: 12 }} alt="" />
-          ) : (
-            <div
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: 12,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                background: "#16A34A",
-                color: "#FFFFFF",
-                fontSize: 24,
-                fontWeight: 600,
-              }}
-            >
-              A
-            </div>
-          )}
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#2563EB",
+              color: "#FFFFFF",
+              fontSize: 22,
+              fontWeight: 600,
+            }}
+          >
+            A
+          </div>
           <div style={{ fontSize: 30, letterSpacing: -0.5, fontWeight: 600 }}>{site.name}</div>
           <div style={{ fontSize: 15, color: "#657184", letterSpacing: 2, textTransform: "uppercase" }}>
             разработка и обслуживание
