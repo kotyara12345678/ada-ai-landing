@@ -53,7 +53,12 @@ class Settings(BaseSettings):
     llm_max_history_messages: int = 16
 
     # --- Админ ---
+    # ADMIN_TOKEN оставлен для серверных вызовов API, панель входит по почте и паролю.
     admin_token: str = ""
+    admin_email: str = ""
+    admin_password: str = ""
+    admin_session_secret: str = ""
+    admin_session_ttl_hours: int = 72
 
     # --- Логирование ---
     log_level: str = "INFO"

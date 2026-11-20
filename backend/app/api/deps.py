@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import secrets
 
-from fastapi import Header, HTTPException, Request, status
+from fastapi import Cookie, Header, HTTPException, Request, status
 
 from app.core.config import settings
+from app.services import admin_auth
 from app.services.ratelimit import SlidingWindowLimiter
 
 lead_limiter = SlidingWindowLimiter(settings.rate_limit_leads, settings.rate_limit_window_seconds)
 chat_limiter = SlidingWindowLimiter(settings.rate_limit_chat, settings.rate_limit_window_seconds)
+admin_login_limiter = SlidingWindowLimiter(5, 300)
 
 
 def client_ip(request: Request) -> str:
@@ -22,15 +24,25 @@ def client_ip(request: Request) -> str:
     return request.client.host if request.client else "unknown"
 
 
-async def require_admin(authorization: str | None = Header(default=None)) -> None:
-    if not settings.admin_token:
+async def require_admin(
+    request: Request,
+    authorization: str | None = Header(default=None),
+    session: str | None = Cookie(default=None, alias=admin_auth.COOKIE_NAME),
+) -> str:
+    """Доступ в админку: cookie-сессия панели или серверный bearer-токен."""
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.removeprefix("Bearer ").strip()
+        if settings.admin_token and secrets.compare_digest(token, settings.admin_token):
+            return "token"
+
+    email = admin_auth.verify_session(session or request.cookies.get(admin_auth.COOKIE_NAME))
+    if email:
+        return email
+
+    if not settings.admin_token and not admin_auth.configured():
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="Админ-доступ не настроен (ADMIN_TOKEN)",
+            detail="Админ-доступ не настроен (ADMIN_EMAIL/ADMIN_PASSWORD)",
         )
-    if not authorization or not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Требуется токен")
 
-    token = authorization.removeprefix("Bearer ").strip()
-    if not secrets.compare_digest(token, settings.admin_token):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Неверный токен")
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Требуется авторизация")
