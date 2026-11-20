@@ -3,10 +3,8 @@ import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/manrope";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { Analytics } from "@/components/layout/Analytics";
-import { AIConsultant } from "@/components/ai/AIConsultant";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { site } from "@/config/site";
 import { jsonLdOrganization, jsonLdWebSite } from "@/lib/seo";
@@ -71,10 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Перейти к содержимому
         </a>
         <JsonLd data={[jsonLdOrganization, jsonLdWebSite]} id="site-jsonld" />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <AIConsultant />
+        <SiteChrome>{children}</SiteChrome>
         <Analytics />
       </body>
     </html>
