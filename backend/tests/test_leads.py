@@ -48,6 +48,13 @@ def test_lead_invalid_email_rejected(client: TestClient) -> None:
     assert response.status_code == 422
 
 
+def test_lead_requires_email(client: TestClient) -> None:
+    missing = valid_lead()
+    missing.pop("email")
+    assert client.post("/api/leads", json=missing).status_code == 422
+    assert client.post("/api/leads", json=valid_lead(email="")).status_code == 422
+
+
 def test_honeypot_marked_as_spam_without_notification(
     client: TestClient, telegram_calls: list[str]
 ) -> None:
