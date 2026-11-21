@@ -13,7 +13,6 @@ PAGE_HINTS = {
     "/ai-development": "Пользователь на странице AI-разработки.",
     "/automation": "Пользователь на странице автоматизации.",
     "/chatbots": "Пользователь на странице чат-ботов.",
-    "/voice-ai": "Пользователь на странице голосовых AI-агентов.",
     "/maintenance": "Пользователь на странице технического обслуживания IT-продуктов.",
     "/website-maintenance": "Пользователь на странице поддержки сайтов.",
     "/server-administration": "Пользователь на странице администрирования серверов.",
@@ -26,7 +25,7 @@ PAGE_HINTS = {
 }
 
 DIRECTION_CHOICES = (
-    "web-development|backend|ai-development|automation|chatbots|voice-ai|"
+    "web-development|backend|ai-development|automation|chatbots|"
     "website-maintenance|server-administration|database-management|technical-support|other"
 )
 

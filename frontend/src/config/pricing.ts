@@ -26,7 +26,6 @@ export type DirectionSlug =
   | "ai-development"
   | "automation"
   | "chatbots"
-  | "voice-ai"
   | "website-maintenance"
   | "server-administration"
   | "database-management"
@@ -124,20 +123,6 @@ export const priceItems: PriceItem[] = [
     featured: true,
   },
   {
-    id: "voice-agent",
-    title: "Голосовой AI-агент",
-    price: 15000,
-    summary: "Приём входящих звонков и квалификация обращений.",
-    details: [
-      "Телефония и STT/TTS-пайплайн",
-      "Сценарий квалификации клиента",
-      "Передача данных в CRM",
-    ],
-    category: "AI",
-    direction: "voice-ai",
-    featured: true,
-  },
-  {
     id: "api-integration",
     title: "Интеграция API",
     price: 5000,
@@ -176,19 +161,6 @@ export const priceItems: PriceItem[] = [
     ],
     category: "AI",
     direction: "ai-development",
-  },
-  {
-    id: "voice-inbound",
-    title: "Входящая телефония с AI",
-    price: 25000,
-    summary: "Маршрутизация звонков и автоматическая запись в CRM.",
-    details: [
-      "Сценарий приветствия и уточнений",
-      "Запись и расшифровка разговоров",
-      "Передача заявки ответственному",
-    ],
-    category: "AI",
-    direction: "voice-ai",
   },
   {
     id: "custom-software",

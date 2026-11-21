@@ -86,34 +86,6 @@ export function ProjectPreview({ project, className }: { project: Project; class
             </div>
           ) : null}
 
-          {project.preview === "voice" ? (
-            <div className="flex h-full flex-col justify-between">
-              <div className="flex items-center gap-2">
-                <span className="size-6 rounded-full" style={{ backgroundColor: `${project.accent}25` }} />
-                <div className="space-y-1">
-                  <div className="h-1.5 w-16 rounded-sm bg-muted/25" />
-                  <div className="h-1 w-10 rounded-sm bg-muted/10" />
-                </div>
-              </div>
-              <div className="flex h-12 items-center gap-[3px]">
-                {Array.from({ length: 28 }).map((_, index) => (
-                  <span
-                    key={index}
-                    className="w-full rounded-sm"
-                    style={{
-                      height: `${20 + Math.abs(Math.sin(index * 0.7)) * 70}%`,
-                      backgroundColor: project.accent,
-                      opacity: 0.15 + (index % 5) * 0.12,
-                    }}
-                  />
-                ))}
-              </div>
-              <div className="space-y-1.5">
-                <div className="h-1.5 w-3/4 rounded-sm bg-muted/15" />
-                <div className="h-1.5 w-1/2 rounded-sm bg-muted/10" />
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
     </div>

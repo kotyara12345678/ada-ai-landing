@@ -179,34 +179,5 @@ export function ServiceVisual({
     );
   }
 
-  if (slug === "voice-ai") {
-    const bars = [28, 52, 78, 44, 92, 58, 34, 70, 48, 84, 40, 62, 30, 54, 46];
-    return (
-      <div className={cn("flex items-center gap-2.5 rounded-lg border px-2.5 py-2", surface)}>
-        <span
-          className={cn(
-            "flex size-6 shrink-0 items-center justify-center rounded-full",
-            accentSoft[tone],
-            accentText[tone],
-          )}
-        >
-          <span className="size-1.5 rounded-full bg-current" />
-        </span>
-        <div className="flex h-9 flex-1 items-center gap-[2px]">
-          {bars.map((height, index) => (
-            <span
-              key={index}
-              className={cn("animate-grow flex-1 rounded-full opacity-80", accentBg[tone])}
-              style={{ height: `${height}%`, animationDelay: `${index * 45}ms` }}
-            />
-          ))}
-        </div>
-        <span className={cn("shrink-0 font-mono text-[0.56rem]", dark ? "text-white/60" : "text-ink-muted")}>
-          00:38
-        </span>
-      </div>
-    );
-  }
-
   return null;
 }

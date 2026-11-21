@@ -47,7 +47,6 @@ export const site = {
     { label: "AI-разработка", href: "/ai-development" },
     { label: "Автоматизация", href: "/automation" },
     { label: "Чат-боты", href: "/chatbots" },
-    { label: "Голосовой AI", href: "/voice-ai" },
   ],
 
   /** Направления технического обслуживания */
