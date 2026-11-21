@@ -18,7 +18,6 @@ DIRECTION_LABELS = {
     "ai-development": "AI-разработка",
     "automation": "Автоматизация",
     "chatbots": "Чат-боты",
-    "voice-ai": "Голосовой AI",
     "other": "Другое",
 }
 

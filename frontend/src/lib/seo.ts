@@ -95,7 +95,6 @@ export const jsonLdOrganization = {
     "AI-агенты",
     "Автоматизация бизнес-процессов",
     "Telegram-боты",
-    "Голосовые AI-агенты",
   ],
   sameAs: [site.contacts.telegram],
 } as const;

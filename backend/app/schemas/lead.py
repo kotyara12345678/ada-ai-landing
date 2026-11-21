@@ -19,7 +19,6 @@ DIRECTIONS = (
     "ai-development",
     "automation",
     "chatbots",
-    "voice-ai",
     "website-maintenance",
     "server-administration",
     "database-management",
