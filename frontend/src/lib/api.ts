@@ -7,7 +7,7 @@ export const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "/api";
 export type LeadPayload = {
   name: string;
   contact: string;
-  email?: string;
+  email: string;
   direction: string;
   description: string;
   budget?: string;

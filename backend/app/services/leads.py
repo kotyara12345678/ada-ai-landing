@@ -69,7 +69,7 @@ async def create_lead(
         public_id=await _unique_public_id(session),
         name=payload.name,
         contact=payload.contact,
-        email=str(payload.email) if payload.email else None,
+        email=str(payload.email),
         direction=payload.direction,
         description=payload.description,
         budget=payload.budget,

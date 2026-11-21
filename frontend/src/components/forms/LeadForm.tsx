@@ -61,8 +61,17 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
     if (status === "submitting") return;
     setError(null);
 
-    if (!values.name.trim() || !values.contact.trim() || !values.description.trim()) {
-      setError("Заполните имя, контакт и описание задачи.");
+    if (
+      !values.name.trim() ||
+      !values.contact.trim() ||
+      !values.email.trim() ||
+      !values.description.trim()
+    ) {
+      setError("Заполните имя, контакт, email и описание задачи.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(values.email.trim())) {
+      setError("Проверьте email — на него отправим оценку и план работ.");
       return;
     }
     if (values.description.trim().length < 15) {
@@ -156,7 +165,7 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className={labelClass} htmlFor="lead-email">
-            Email <span className="font-normal text-ink-muted">(необязательно)</span>
+            Email <span className="text-brand">*</span>
           </label>
           <input
             id="lead-email"
@@ -168,6 +177,8 @@ export function LeadForm({ defaultDirection = "", compact = false, className }: 
             onChange={update("email")}
             autoComplete="email"
             maxLength={200}
+            aria-required="true"
+            required
           />
         </div>
         <div>

@@ -112,7 +112,7 @@ async def handle_marker(raw: str, page: str | None, ip: str, request: Request) -
         payload = LeadCreate(
             name=str(data.get("name", "")),
             contact=str(data.get("contact", "")),
-            email=data.get("email") or None,
+            email=str(data.get("email") or "").strip(),
             direction=str(data.get("direction", "other")),
             description=str(data.get("description", "")),
             budget=data.get("budget") or None,
@@ -127,7 +127,7 @@ async def handle_marker(raw: str, page: str | None, ip: str, request: Request) -
             "error",
             {
                 "type": "error",
-                "message": "Для заявки не хватает корректных данных. Уточните контакт и описание задачи.",
+                "message": "Для заявки не хватает корректных данных. Уточните email, контакт и описание задачи.",
             },
         )
 

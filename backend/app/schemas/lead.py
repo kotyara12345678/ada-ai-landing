@@ -38,7 +38,8 @@ class LeadCreate(BaseModel):
 
     name: str = Field(min_length=2, max_length=120)
     contact: str = Field(min_length=2, max_length=160)
-    email: EmailStr | None = None
+    # Почта обязательна: на неё уходит оценка и по ней проще вернуться к диалогу
+    email: EmailStr
     direction: str = Field(default="other", max_length=60)
     description: str = Field(min_length=15, max_length=4000)
     budget: str | None = Field(default=None, max_length=80)
@@ -56,11 +57,10 @@ class LeadCreate(BaseModel):
 
     @field_validator("email", mode="before")
     @classmethod
-    def empty_email_to_none(cls, value: object) -> object:
-        # Пустое поле из формы — это отсутствие email, а не невалидный адрес
-        if isinstance(value, str) and not value.strip():
-            return None
-        return value
+    def email_required(cls, value: object) -> object:
+        if value is None or (isinstance(value, str) and not value.strip()):
+            raise ValueError("Укажите email — на него отправим оценку и план работ")
+        return value.strip() if isinstance(value, str) else value
 
     @field_validator("budget", "deadline", "page", "company", mode="before")
     @classmethod

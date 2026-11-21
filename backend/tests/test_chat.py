@@ -69,7 +69,7 @@ def test_chat_stream_creates_lead_from_marker(
     client: TestClient, monkeypatch, telegram_calls: list[str]
 ) -> None:
     marker = (
-        '<<<LEAD {"name": "Анна", "contact": "@anna_dev", "email": "", '
+        '<<<LEAD {"name": "Анна", "contact": "@anna_dev", "email": "anna@example.com", '
         '"direction": "chatbots", "description": "Нужен Telegram-бот для приема заказов кофейни", '
         '"budget": "до 15 000 ₽", "deadline": "2 недели"} >>>'
     )
@@ -134,6 +134,7 @@ def test_spam_detector_flags_links() -> None:
     payload = LeadCreate(
         name="Тест",
         contact="@testuser",
+        email="test@example.com",
         description="http://a.ru http://b.ru http://c.ru http://d.ru покупайте",
         consent=True,
         started_at=1,
