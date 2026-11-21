@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from app.core.config import settings
 from app.db.base import Base
-from app.models import lead  # noqa: F401 - регистрирует модели в metadata
+from app.models import lead, proposal  # noqa: F401 - регистрирует модели в metadata
 
 config = context.config
 config.set_main_option("sqlalchemy.url", settings.database_url)

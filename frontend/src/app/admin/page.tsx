@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowUpRight,
+  FileText,
   Loader2,
   LogOut,
   Mail,
@@ -24,6 +25,7 @@ import {
   updateLeadStatus,
 } from "@/lib/admin-api";
 import { cn } from "@/lib/utils";
+import { createProposalFromLead } from "@/lib/proposals-api";
 
 const STATUS_STYLES: Record<string, string> = {
   new: "bg-[#e7ecff] text-[#1e4bff]",
@@ -58,6 +60,7 @@ export default function AdminPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [creatingProposal, setCreatingProposal] = useState<string | null>(null);
 
   const load = useCallback(
     async (status: LeadStatus | "all") => {
@@ -126,6 +129,22 @@ export default function AdminPage() {
     }
   }
 
+  async function onCreateProposal(lead: AdminLead) {
+    setCreatingProposal(lead.public_id);
+    try {
+      const proposal = await createProposalFromLead(lead.public_id);
+      router.push(`/admin/proposals/${encodeURIComponent(proposal.public_id)}`);
+    } catch (caught) {
+      if (caught instanceof AdminApiError && caught.status === 401) {
+        router.replace("/admin/login");
+        return;
+      }
+      setError(caught instanceof Error ? caught.message : "Не удалось создать КП");
+    } finally {
+      setCreatingProposal(null);
+    }
+  }
+
   async function onLogout() {
     try {
       await logout();
@@ -164,6 +183,13 @@ export default function AdminPage() {
           {email ? <p className="mt-1 text-[0.78rem] text-ink-muted">{email}</p> : null}
         </div>
         <div className="flex items-center gap-2">
+          <Link
+            href="/admin/proposals"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-line bg-surface px-3 text-[0.82rem] text-ink transition-colors hover:border-line-strong"
+          >
+            <FileText className="size-3.5" aria-hidden />
+            Коммерческие предложения
+          </Link>
           <button
             type="button"
             onClick={onRefresh}
@@ -272,7 +298,20 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => onCreateProposal(lead)}
+                  disabled={creatingProposal === lead.public_id}
+                  className="inline-flex h-8 items-center gap-1 rounded-lg border border-line bg-surface px-2 text-[0.78rem] text-ink-muted transition-colors hover:border-line-strong hover:text-ink disabled:opacity-60"
+                >
+                  {creatingProposal === lead.public_id ? (
+                    <Loader2 className="size-3 animate-spin" aria-hidden />
+                  ) : (
+                    <FileText className="size-3.5" aria-hidden />
+                  )}
+                  КП
+                </button>
                 <span className="text-[0.72rem] text-ink-muted">{formatDate(lead.created_at)}</span>
                 <select
                   value={lead.status}
