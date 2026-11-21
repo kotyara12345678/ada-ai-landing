@@ -147,14 +147,14 @@ export function ServicesShowcase() {
           </LinkButton>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:gap-4 md:grid-cols-3">
+        <div className="hide-scrollbar -mx-5 mt-8 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto overscroll-x-contain px-5 pb-1 md:mx-0 md:mt-8 md:grid md:gap-4 md:overflow-visible md:px-0 md:pb-0 md:grid-cols-3">
           {groups.map((group) => {
             const Icon = group.icon;
             return (
               <div
                 key={group.title}
                 className={cn(
-                  "group relative flex flex-col overflow-hidden border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card md:p-6",
+                  "group relative flex w-[86%] shrink-0 snap-start flex-col overflow-hidden border p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card md:w-auto md:p-6",
                   group.tone.card,
                 )}
               >
