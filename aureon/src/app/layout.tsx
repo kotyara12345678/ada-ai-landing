@@ -8,10 +8,14 @@ import "./globals.css";
 
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { StaticNav } from "@/components/system/static-nav";
 import { site } from "@/lib/site";
 
+/** В статической сборке для витрины ADA меняется origin. */
+const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
+  metadataBase: new URL(process.env.WORKS_SITE_ORIGIN ?? site.url),
   title: {
     default: "AUREON — Architecture shaped by nature",
     template: "%s — AUREON",
@@ -51,6 +55,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="noise">
+        {staticDemo ? <StaticNav /> : null}
         <a
           href="#main"
           className="label sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[100] focus:bg-ink focus:px-4 focus:py-3 focus:text-paper"

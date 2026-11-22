@@ -13,6 +13,9 @@ const fieldClass =
 
 const labelClass = "label block text-stone";
 
+/** Static copy inside the ADA portfolio: no server handler next to it. */
+const STATIC_DEMO = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
@@ -26,6 +29,11 @@ export function ContactForm() {
 
     setStatus("loading");
     setError(null);
+
+    if (STATIC_DEMO) {
+      setStatus("success");
+      return;
+    }
 
     try {
       const response = await fetch("/api/contact", {
@@ -57,18 +65,25 @@ export function ContactForm() {
   if (status === "success") {
     return (
       <div className="flex min-h-[420px] flex-col justify-center border border-ink/15 bg-paper p-8 md:p-12">
-        <p className="label text-bronze">Enquiry received</p>
+        <p className="label text-bronze">{STATIC_DEMO ? "Concept demo" : "Enquiry received"}</p>
         <h2 className="display mt-5 text-[clamp(1.9rem,3vw,2.8rem)]">
-          Thank you — we have your note.
+          {STATIC_DEMO ? "This is a design demonstration." : "Thank you — we have your note."}
         </h2>
-        <p className="body-copy mt-5 max-w-[42ch] text-sm">
-          A member of the studio will reply within two working days. If your
-          project is time-sensitive, write to{" "}
-          <a className="underline decoration-ink/30 underline-offset-4" href={`mailto:${site.email}`}>
-            {site.email}
-          </a>
-          .
-        </p>
+        {STATIC_DEMO ? (
+          <p className="body-copy mt-5 max-w-[42ch] text-sm">
+            AUREON is a fictional studio and this site is a concept built by ADA.
+            The form is shown for demonstration only — nothing was sent or stored.
+          </p>
+        ) : (
+          <p className="body-copy mt-5 max-w-[42ch] text-sm">
+            A member of the studio will reply within two working days. If your
+            project is time-sensitive, write to{" "}
+            <a className="underline decoration-ink/30 underline-offset-4" href={`mailto:${site.email}`}>
+              {site.email}
+            </a>
+            .
+          </p>
+        )}
         <button
           type="button"
           onClick={() => setStatus("idle")}
@@ -199,8 +214,9 @@ export function ContactForm() {
 
       <div className="mt-10 flex flex-col gap-5 border-t border-ink/12 pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-[36ch] text-xs leading-relaxed text-stone">
-          We reply to every enquiry within two working days. Your details are used
-          only to answer this message.
+          {STATIC_DEMO
+            ? "Demonstration only: this concept site has no backend, so nothing is sent."
+            : "We reply to every enquiry within two working days. Your details are used only to answer this message."}
         </p>
         <button
           type="submit"

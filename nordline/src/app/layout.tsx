@@ -4,8 +4,14 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "./globals.css";
 
+import { StaticNav } from "@/components/system/static-nav";
+
+/** В статической сборке для витрины ADA меняются origin и канонический адрес. */
+const worksBasePath = process.env.WORKS_BASE_PATH ?? "";
+const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(process.env.WORKS_SITE_ORIGIN ?? "https://example.com"),
   title: {
     default: "NORDLINE — инженерные решения и оборудование для промышленности",
     template: "%s — NORDLINE",
@@ -19,7 +25,7 @@ export const metadata: Metadata = {
     "комплектующие для производства",
     "комплектация предприятий",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: worksBasePath || "/" },
   openGraph: {
     type: "website",
     locale: "ru_RU",
@@ -45,7 +51,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <body>{children}</body>
+      <body>
+        {staticDemo ? <StaticNav /> : null}
+        {children}
+      </body>
     </html>
   );
 }

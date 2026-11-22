@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import type { NextConfig } from "next";
 
 /**
@@ -5,6 +6,30 @@ import type { NextConfig } from "next";
  * В development используется rewrite, чтобы фронтенд и API жили на одном origin.
  */
 const backendUrl = process.env.BACKEND_INTERNAL_URL ?? "http://127.0.0.1:8000";
+
+/**
+ * Концепт-сайты AUREON и NORDLINE собираются в статику отдельными приложениями
+ * и лежат в public/works/<slug>. Файл маршрутов пишет scripts/build-works.mjs:
+ * статика Next отдаёт только точные пути, поэтому каждый html-файл получает rewrite.
+ */
+type WorksRoutes = Record<string, string[]>;
+
+function readWorksRoutes(): WorksRoutes {
+  try {
+    return JSON.parse(
+      readFileSync(new URL("./works-routes.json", import.meta.url), "utf8"),
+    ) as WorksRoutes;
+  } catch {
+    return {};
+  }
+}
+
+const worksRewrites = Object.entries(readWorksRoutes()).flatMap(([slug, routes]) =>
+  routes.map((route) => ({
+    source: `/works/${slug}${route}`,
+    destination: `/works/${slug}${route === "" ? "/index" : route}.html`,
+  })),
+);
 
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -16,9 +41,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     if (process.env.NODE_ENV === "production" && process.env.API_PROXY_DISABLED === "1") {
-      return [];
+      return worksRewrites;
     }
     return [
+      ...worksRewrites,
       {
         source: "/api/:path*",
         destination: `${backendUrl}/api/:path*`,

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/home/Hero";
 import { Advantages } from "@/components/home/Advantages";
 import { ServicesShowcase } from "@/components/sections/ServicesShowcase";
+import { WorksSection } from "@/components/home/WorksSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
 import { PricingPreview } from "@/components/home/PricingPreview";
 import { MaintenanceSection } from "@/components/home/MaintenanceSection";
@@ -38,6 +39,7 @@ export default function HomePage() {
       <Hero />
       <Advantages />
       <ServicesShowcase />
+      <WorksSection />
       <ProcessSection />
       <PricingPreview />
       <MaintenanceSection />

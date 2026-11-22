@@ -26,6 +26,9 @@ const emptyValues: Fields = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
 
+/** Статическая копия в портфолио ADA: серверного обработчика рядом нет. */
+const STATIC_DEMO = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
+
 function validate(values: Fields): Errors {
   const errors: Errors = {};
 
@@ -126,6 +129,11 @@ export function LeadForm() {
     setStatus("submitting");
     setServerError("");
 
+    if (STATIC_DEMO) {
+      setStatus("success");
+      return;
+    }
+
     try {
       const response = await fetch("/api/lead", {
         method: "POST",
@@ -161,10 +169,13 @@ export function LeadForm() {
       >
         <div>
           <CheckCircle2 className="h-9 w-9 text-accent" aria-hidden="true" />
-          <h3 className="mt-5 text-2xl font-bold tracking-tight">Заявка сохранена</h3>
+          <h3 className="mt-5 text-2xl font-bold tracking-tight">
+            {STATIC_DEMO ? "Форма проверена" : "Заявка сохранена"}
+          </h3>
           <p className="mt-3 max-w-md text-sm leading-relaxed text-graphite/70">
-            Данные отправлены на сервер демонстрационного проекта и записаны в журнал заявок.
-            Реальная передача в NORDLINE не выполняется — компания и сайт являются концептом.
+            {STATIC_DEMO
+              ? "Это статическая копия концепта в портфолио ADA: заявка никуда не отправляется и не сохраняется. NORDLINE — вымышленная компания, сайт создан как демонстрация дизайна и вёрстки."
+              : "Данные отправлены на сервер демонстрационного проекта и записаны в журнал заявок. Реальная передача в NORDLINE не выполняется — компания и сайт являются концептом."}
           </p>
 
           <dl className="mt-6 grid gap-x-6 border-t border-graphite/15 pt-4 sm:grid-cols-2">
@@ -335,8 +346,9 @@ export function LeadForm() {
             )}
           </button>
           <p className="max-w-xs text-[0.6875rem] leading-relaxed text-graphite/70">
-            Демонстрационная форма: заявка сохраняется в журнале проекта, а не отправляется
-            в компанию.
+            {STATIC_DEMO
+              ? "Демонстрационная форма: данные не отправляются — сайт показывает только дизайн и поведение интерфейса."
+              : "Демонстрационная форма: заявка сохраняется в журнале проекта, а не отправляется в компанию."}
           </p>
         </div>
       </form>
