@@ -34,3 +34,6 @@ npm-debug.log*
 Thumbs.db
 .idea/
 .vscode/
+
+# QA screenshots
+screenshots/
