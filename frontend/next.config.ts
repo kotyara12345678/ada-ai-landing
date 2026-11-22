@@ -24,12 +24,20 @@ function readWorksRoutes(): WorksRoutes {
   }
 }
 
-const worksRewrites = Object.entries(readWorksRoutes()).flatMap(([slug, routes]) =>
-  routes.map((route) => ({
+const worksRoutes = Object.entries(readWorksRoutes());
+
+const worksRewrites = worksRoutes.flatMap(([slug, routes]) => [
+  ...routes.map((route) => ({
     source: `/works/${slug}${route}`,
     destination: `/works/${slug}${route === "" ? "/index" : route}.html`,
   })),
-);
+  // Клиентский роутер ADA запрашивает RSC-полезную нагрузку корневой страницы
+  // витрины как /works/<slug>.txt — отдаём её из экспортированного index.txt.
+  {
+    source: `/works/${slug}.txt`,
+    destination: `/works/${slug}/index.txt`,
+  },
+]);
 
 const nextConfig: NextConfig = {
   output: "standalone",

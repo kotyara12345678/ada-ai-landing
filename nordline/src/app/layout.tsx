@@ -34,11 +34,18 @@ export const metadata: Metadata = {
     title: "NORDLINE — инженерные решения и оборудование для промышленности",
     description:
       "Оборудование, комплектующие и комплексные решения для предприятий, где важны надёжность, точность и стабильность процессов.",
-    images: [{ url: "/images/hero-hall.jpg", width: 1392, height: 752, alt: "Промышленный цех NORDLINE" }],
+    images: [
+      {
+        url: `${worksBasePath}/images/hero-hall.jpg`,
+        width: 1392,
+        height: 752,
+        alt: "Промышленный цех NORDLINE",
+      },
+    ],
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/favicon.svg" }],
+    icon: [{ url: `${worksBasePath}/favicon.svg`, type: "image/svg+xml" }],
+    apple: [{ url: `${worksBasePath}/favicon.svg` }],
   },
   robots: { index: true, follow: true },
 };

@@ -11,7 +11,8 @@ import { Footer } from "@/components/layout/footer";
 import { StaticNav } from "@/components/system/static-nav";
 import { site } from "@/lib/site";
 
-/** В статической сборке для витрины ADA меняется origin. */
+/** В статической сборке для витрины ADA меняются origin и basePath. */
+const worksBasePath = process.env.WORKS_BASE_PATH ?? "";
 const staticDemo = process.env.NEXT_PUBLIC_STATIC_DEMO === "1";
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     url: site.url,
     images: [
       {
-        url: "/images/hero-villa.jpg",
+        url: `${worksBasePath}/images/hero-villa.jpg`,
         width: 1392,
         height: 752,
         alt: "Concrete and glass residence at dusk among pines",
@@ -40,11 +41,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AUREON — Architecture shaped by nature",
     description: site.description,
-    images: ["/images/hero-villa.jpg"],
+    images: [`${worksBasePath}/images/hero-villa.jpg`],
   },
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/favicon.svg" }],
+    icon: [{ url: `${worksBasePath}/favicon.svg`, type: "image/svg+xml" }],
+    apple: [{ url: `${worksBasePath}/favicon.svg` }],
   },
   robots: { index: true, follow: true },
 };
