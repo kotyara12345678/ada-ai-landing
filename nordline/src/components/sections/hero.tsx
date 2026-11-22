@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { company } from "@/lib/content";
+import { asset } from "@/lib/asset";
 
 export function Hero() {
   const reduced = useReducedMotion();
@@ -17,7 +18,7 @@ export function Hero() {
         transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
       >
         <Image
-          src="/images/hero-hall.jpg"
+          src={asset("/images/hero-hall.jpg")}
           alt="Производственный цех с линиями промышленного оборудования"
           fill
           priority

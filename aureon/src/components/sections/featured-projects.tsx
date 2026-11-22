@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -55,7 +56,7 @@ export function FeaturedProjects() {
                   <Link href={`/projects/${project.slug}`} className="block" aria-label={project.title}>
                     <div className={cn("media relative w-full", layout.ratio)}>
                       <Image
-                        src={project.image}
+                        src={asset(project.image)}
                         alt={project.imageAlt}
                         fill
                         sizes="(max-width: 768px) 100vw, 60vw"

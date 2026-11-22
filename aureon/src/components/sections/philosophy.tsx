@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -58,7 +59,7 @@ export function Philosophy() {
             <figure>
               <div className="media relative aspect-[3/4] w-full">
                 <Image
-                  src="/images/philosophy.jpg"
+                  src={asset("/images/philosophy.jpg")}
                   alt="Daylight falling through a tall opening onto a curved plaster wall beside a stone stair"
                   fill
                   sizes="(max-width: 768px) 100vw, 42vw"

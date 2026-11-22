@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { asset } from "@/lib/asset";
 
 import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
@@ -70,7 +71,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
       <Reveal className="shell">
         <div className="media relative aspect-[16/9] w-full">
           <Image
-            src={project.image}
+            src={asset(project.image)}
             alt={project.imageAlt}
             fill
             priority
@@ -125,7 +126,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                 <figure>
                   <div className={cn("media relative w-full", layout.ratio)}>
                     <Image
-                      src={image.src}
+                      src={asset(image.src)}
                       alt={image.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 60vw"

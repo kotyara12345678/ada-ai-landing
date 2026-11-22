@@ -17,6 +17,17 @@ export type Work = {
 
 export const works: Work[] = [
   {
+    slug: "conterra",
+    name: "CONTERRA",
+    discipline: "Инженерно-строительная компания · корпоративный сайт",
+    summary:
+      "Пять страниц с собственной дизайн-системой: направления с интерактивным переключателем, концептуальные кейсы с фильтром, схема этапов и форма обращения.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+    href: "/works/conterra",
+    cover: "/works-covers/conterra.jpg",
+    coverAlt: "Первый экран корпоративного сайта CONTERRA со светлой архитектурной фотографией",
+  },
+  {
     slug: "nordline",
     name: "NORDLINE",
     discipline: "Промышленная B2B-компания · одностраничный сайт",

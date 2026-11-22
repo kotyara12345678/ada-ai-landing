@@ -1,4 +1,15 @@
 {
+  "conterra": [
+    "",
+    "/about",
+    "/contacts",
+    "/projects",
+    "/projects/commercial-building",
+    "/projects/engineering-modernization",
+    "/projects/logistics-center",
+    "/projects/production-complex",
+    "/services"
+  ],
   "aureon": [
     "",
     "/contact",

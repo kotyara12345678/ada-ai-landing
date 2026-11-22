@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 import { PageIntro } from "@/components/layout/page-intro";
 import { Approach } from "@/components/sections/approach";
@@ -44,7 +45,7 @@ export default function StudioPage() {
       <Reveal className="shell">
         <div className="media relative aspect-[16/9] w-full">
           <Image
-            src="/images/studio.jpg"
+            src={asset("/images/studio.jpg")}
             alt="Architecture studio interior with oak table, white physical models and material samples"
             fill
             priority

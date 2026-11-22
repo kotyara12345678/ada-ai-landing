@@ -13,6 +13,7 @@ import {
 } from "@/lib/content";
 import { cn } from "@/lib/utils";
 import { Modal } from "@/components/ui/modal";
+import { asset } from "@/lib/asset";
 
 export function Catalog() {
   const [filter, setFilter] = useState<ProductCategory | "all">("all");
@@ -115,7 +116,7 @@ export function Catalog() {
             >
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-paper/5">
                   <Image
-                    src={product.image}
+                    src={asset(product.image)}
                     alt={product.alt}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -157,7 +158,7 @@ export function Catalog() {
           <div className="grid md:grid-cols-2">
             <div className="relative aspect-[4/3] w-full bg-mist md:aspect-auto md:h-full md:min-h-[26rem]">
               <Image
-                src={active.image}
+                src={asset(active.image)}
                 alt={active.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 40vw"

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionLabel } from "@/components/ui/section-label";
 import { materials } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 const tiles = [
   { span: "md:col-span-5", ratio: "aspect-[4/5]" },
@@ -43,7 +44,7 @@ export function Materials() {
                 <figure>
                   <div className={cn("media relative w-full", tile.ratio)}>
                     <Image
-                      src={material.image}
+                      src={asset(material.image)}
                       alt={material.alt}
                       fill
                       sizes="(max-width: 768px) 100vw, 40vw"

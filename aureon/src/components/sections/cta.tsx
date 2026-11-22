@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 import { Reveal } from "@/components/ui/reveal";
 
@@ -7,7 +8,7 @@ export function Cta() {
   return (
     <section className="relative isolate overflow-hidden bg-ink text-paper">
       <Image
-        src="/images/cta-sunset.jpg"
+        src={asset("/images/cta-sunset.jpg")}
         alt="Contemporary residence silhouetted against an amber sunset sky, reflected in still water"
         fill
         sizes="100vw"

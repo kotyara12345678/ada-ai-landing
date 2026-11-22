@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
+import { asset } from "@/lib/asset";
 
 const facts = [
   {
@@ -84,7 +85,7 @@ export function Intro() {
           <figure className="relative">
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist md:aspect-[16/7]">
               <Image
-                src="/images/intro-line.jpg"
+                src={asset("/images/intro-line.jpg")}
                 alt="Промышленный участок с насосными агрегатами и трубной обвязкой"
                 fill
                 sizes="100vw"

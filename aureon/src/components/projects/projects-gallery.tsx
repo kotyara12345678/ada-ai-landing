@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { asset } from "@/lib/asset";
 
 import { categories, type Project, type ProjectCategory } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -87,7 +88,7 @@ export function ProjectsGallery({ projects }: { projects: Project[] }) {
               <Link href={`/projects/${project.slug}`} className="block">
                 <div className={cn("media relative w-full overflow-hidden", tile.ratio)}>
                   <Image
-                    src={project.image}
+                    src={asset(project.image)}
                     alt={project.imageAlt}
                     fill
                     sizes="(max-width: 768px) 100vw, 55vw"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { industries } from "@/lib/content";
 import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 const layout = [
   "md:col-span-7 md:h-[32rem]",
@@ -41,7 +42,7 @@ export function Industries() {
             >
               <figure className="relative h-full w-full overflow-hidden bg-graphite/10">
                 <Image
-                  src={industry.image}
+                  src={asset(industry.image)}
                   alt={industry.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 58vw"

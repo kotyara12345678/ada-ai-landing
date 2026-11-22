@@ -4,6 +4,7 @@ import { directions } from "@/lib/content";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHead } from "@/components/ui/section-head";
 import { cn } from "@/lib/utils";
+import { asset } from "@/lib/asset";
 
 export function Directions() {
   return (
@@ -50,7 +51,7 @@ export function Directions() {
               <article className="group">
                 <div className="relative aspect-[4/3] w-full overflow-hidden bg-graphite/10">
                   <Image
-                    src={direction.image}
+                    src={asset(direction.image)}
                     alt={direction.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"

@@ -1,0 +1,7 @@
+# Концепт-сайт CONTERRA: собственный dev-сервер и сборка для витрины ADA
+node_modules
+.next
+out
+.works-parked
+*.tsbuildinfo
+next-env.d.ts

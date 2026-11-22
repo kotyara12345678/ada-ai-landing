@@ -5,6 +5,7 @@ import { ArrowDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import { asset } from "@/lib/asset";
 
 const lines = ["Architecture shaped", "by nature."];
 
@@ -26,7 +27,7 @@ export function Hero() {
     >
       <motion.div style={{ y: imageY }} className="absolute inset-0 -bottom-[12%]">
         <Image
-          src="/images/hero-villa.jpg"
+          src={asset("/images/hero-villa.jpg")}
           alt="A concrete, glass and stone residence cantilevered over a pine forest at dusk, warm interior light reflected in a still pool"
           fill
           priority
