@@ -49,4 +49,15 @@ export const works: Work[] = [
     cover: "/works-covers/aureon.jpg",
     coverAlt: "Первый экран концепт-сайта AUREON с домом среди сосен",
   },
+  {
+    slug: "vectora",
+    name: "VECTORA",
+    discipline: "IT-компания · премиальный одностраничный сайт",
+    summary:
+      "Премиальный тёмный футуристичный сайт инженерной студии: hero с вычислительной сферой, шесть направлений, концептуальные проекты, стек, процесс, принципы, компания и форма обсуждения.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion", "Canvas"],
+    href: "/works/vectora",
+    cover: "/works-covers/vectora.jpg",
+    coverAlt: "Абстрактная вычислительная структура VECTORA на тёмном фоне",
+  },
 ];
