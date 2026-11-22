@@ -9,17 +9,19 @@ import { Reveal } from "@/components/ui/Reveal";
  * отдельными приложениями (aureon/ и nordline/), поэтому это обычные <a>,
  * а не next/link: клиентский роутер ADA не знает этих маршрутов.
  */
-export function WorksSection() {
+export function WorksSection({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <section className="border-b border-line bg-surface py-12 md:py-16">
       <div className="container-page">
-        <SectionHeading
-          eyebrow="Работы"
-          title="Демонстрационные сайты, сделанные целиком"
-          description="Концепты для вымышленных брендов: структура, дизайн, вёрстка, анимации и адаптив. Открываются как отдельные страницы этого сайта — без редиректов на сторонние домены."
-        />
+        {showHeading ? (
+          <SectionHeading
+            eyebrow="Работы"
+            title="Демонстрационные сайты, сделанные целиком"
+            description="Концепты для вымышленных брендов: структура, дизайн, вёрстка, анимации и адаптив. Открываются как отдельные страницы этого сайта — без редиректов на сторонние домены."
+          />
+        ) : null}
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className={showHeading ? "mt-8 grid gap-4 md:grid-cols-2" : "grid gap-4 md:grid-cols-2"}>
           {works.map((work, index) => (
             <Reveal key={work.slug} delay={index * 0.05}>
               <a

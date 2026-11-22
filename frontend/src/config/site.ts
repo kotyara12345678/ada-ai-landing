@@ -34,6 +34,7 @@ export const site = {
   nav: [
     { label: "Услуги", href: "/web-development" },
     { label: "Обслуживание", href: "/maintenance" },
+    { label: "Работы", href: "/works" },
     { label: "Цены", href: "/pricing" },
     { label: "Блог", href: "/blog" },
     { label: "О нас", href: "/about" },

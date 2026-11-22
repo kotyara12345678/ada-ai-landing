@@ -82,6 +82,7 @@ export function Footer() {
               </p>
               <ul className="flex flex-col gap-2">
                 {[
+                  { label: "Работы", href: "/works" },
                   { label: "Цены", href: "/pricing" },
                   { label: "О нас", href: "/about" },
                   { label: "Блог", href: "/blog" },
