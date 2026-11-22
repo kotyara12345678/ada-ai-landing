@@ -34,17 +34,39 @@ export function Intro() {
               Промышленность не терпит{" "}
               <span className="text-accent">случайных</span> решений
             </h2>
+            <p className="mt-8 max-w-xl text-[0.9375rem] leading-relaxed text-graphite/75 lg:mt-10">
+              Мы поставляем оборудование для участков, где остановка стоит дороже самой техники.
+              Поэтому в основе работы — не каталог, а расчёт: нагрузка, среда, режим эксплуатации
+              и совместимость с тем, что уже установлено на площадке.
+            </p>
           </div>
 
           <div className="flex flex-col gap-6 lg:col-span-4 lg:col-start-9 lg:pt-14">
             <p className="text-[0.9375rem] leading-relaxed text-graphite/75">
-              Ошибка в подборе насоса или привода редко остаётся локальной: она останавливает
-              участок, тянет за собой ремонт и срывает сроки поставки.
-            </p>
-            <p className="text-[0.9375rem] leading-relaxed text-graphite/75">
               Поэтому мы начинаем не с прайса, а с разбора задачи: что происходит на площадке,
               в каком режиме работает оборудование и что должно измениться после поставки.
             </p>
+            <p className="text-[0.9375rem] leading-relaxed text-graphite/75">
+              Если нужной позиции нет у производителя, подбираем функциональный аналог и сверяем
+              присоединительные размеры — замена не должна требовать переделки обвязки.
+            </p>
+            <div className="border-t border-graphite/15 pt-4">
+              <span className="label text-graphite/60">Проверяем до отгрузки</span>
+              <ul className="mt-3 flex flex-col gap-2 text-[0.8125rem] text-graphite/75">
+                <li className="flex gap-2.5">
+                  <span className="mt-2 h-1 w-1 shrink-0 bg-accent" aria-hidden="true" />
+                  Нагрузку, среду и режим работы оборудования
+                </li>
+                <li className="flex gap-2.5">
+                  <span className="mt-2 h-1 w-1 shrink-0 bg-accent" aria-hidden="true" />
+                  Совместимость с существующей обвязкой и приводом
+                </li>
+                <li className="flex gap-2.5">
+                  <span className="mt-2 h-1 w-1 shrink-0 bg-accent" aria-hidden="true" />
+                  Комплектность партии и документацию
+                </li>
+              </ul>
+            </div>
             <a
               href="#directions"
               className="group inline-flex w-fit items-center gap-3 border-b border-graphite/25 pb-2 text-[0.8125rem] font-semibold tracking-wide transition-colors hover:border-accent hover:text-accent"
@@ -62,15 +84,15 @@ export function Intro() {
           <figure className="relative">
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-mist md:aspect-[16/7]">
               <Image
-                src="/images/intro-team.jpg"
-                alt="Инженеры с планшетом у промышленного оборудования в цехе"
+                src="/images/intro-line.jpg"
+                alt="Промышленный участок с насосными агрегатами и трубной обвязкой"
                 fill
                 sizes="100vw"
-                className="object-cover object-[50%_38%]"
+                className="object-cover object-[50%_45%]"
               />
               <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(21,24,22,0.55),transparent_55%)]" />
               <figcaption className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 md:bottom-6 md:left-6 md:right-6">
-                <span className="label text-paper/85">Подбор на площадке заказчика</span>
+                <span className="label text-paper/85">Насосное оборудование и трубная обвязка</span>
                 <span className="label text-[0.5625rem] text-paper/75">Демонстрационное фото</span>
               </figcaption>
             </div>
