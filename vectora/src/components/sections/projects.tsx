@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHead } from "@/components/ui/section-head";
@@ -6,50 +7,29 @@ import { cn } from "@/lib/utils";
 
 const spans = ["md:col-span-7", "md:col-span-5", "md:col-span-5", "md:col-span-7"];
 
-/** Абстрактная «обложка» проекта: свет, сетка и геометрия вместо стокового фото. */
-function ProjectVisual({ project }: { project: Project }) {
-  const [first, second] = project.palette;
+// При статическом экспорте next/image не добавляет basePath к путям картинок.
+const basePath = process.env.NEXT_PUBLIC_WORKS_BASE_PATH ?? "";
 
+/** Обложка проекта: фотография в единой тёмной тональности + служебные метки. */
+function ProjectVisual({ project }: { project: Project }) {
   return (
     <div className="relative aspect-[16/11] w-full overflow-hidden rounded-xl border border-line bg-deep">
-      <div
-        className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
-        style={{
-          background: `radial-gradient(120% 90% at 18% 12%, ${first}33 0%, transparent 58%), radial-gradient(90% 80% at 84% 78%, ${second}26 0%, transparent 62%), linear-gradient(150deg, #0b100d 0%, #101612 100%)`,
-        }}
+      <Image
+        src={`${basePath}${project.image}`}
+        alt={project.imageAlt}
+        fill
+        sizes="(max-width: 768px) 100vw, 55vw"
+        className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
       />
-      <div className="absolute inset-0 opacity-[0.28] [background-image:linear-gradient(to_right,rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:44px_44px]" />
-
-      <svg
-        viewBox="0 0 400 275"
-        className="absolute inset-0 h-full w-full"
+      <div
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(8,11,9,0.72)_0%,rgba(8,11,9,0.12)_45%,rgba(8,11,9,0.28)_100%)]"
         aria-hidden="true"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <defs>
-          <linearGradient id={`${project.slug}-stroke`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor={first} stopOpacity="0.85" />
-            <stop offset="100%" stopColor={second} stopOpacity="0.1" />
-          </linearGradient>
-        </defs>
-        <g stroke={`url(#${project.slug}-stroke)`} fill="none" strokeWidth="1">
-          <circle cx="300" cy="92" r="58" />
-          <circle cx="300" cy="92" r="88" opacity="0.55" />
-          <circle cx="300" cy="92" r="120" opacity="0.28" />
-          <path d="M40 232 C 120 210, 168 150, 232 132 S 340 120, 380 62" opacity="0.55" />
-          <path d="M40 252 C 132 236, 190 182, 250 164 S 348 152, 392 96" opacity="0.3" />
-        </g>
-        <g fill={second}>
-          <circle cx="232" cy="132" r="2.4" />
-          <circle cx="300" cy="92" r="2.8" />
-          <circle cx="380" cy="62" r="1.8" />
-        </g>
-      </svg>
+      />
 
-      <span className="mono absolute left-4 top-4 text-[0.5rem] tracking-[0.24em] text-white/55">
+      <span className="mono absolute left-4 top-4 text-[0.5rem] tracking-[0.24em] text-white/70">
         {project.index}
       </span>
-      <span className="mono absolute right-4 top-4 text-[0.5rem] tracking-[0.24em] text-white/35">
+      <span className="mono absolute right-4 top-4 text-[0.5rem] tracking-[0.24em] text-white/45">
         Concept
       </span>
     </div>

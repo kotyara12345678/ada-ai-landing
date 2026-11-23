@@ -109,8 +109,9 @@ export type Project = {
   summary: string;
   tech: string[];
   facts: { label: string; value: string }[];
-  /** Визуальный код карточки: два цвета градиента. */
-  palette: [string, string];
+  /** Обложка карточки в /public/images. */
+  image: string;
+  imageAlt: string;
 };
 
 export const projects: Project[] = [
@@ -127,7 +128,8 @@ export const projects: Project[] = [
       { label: "Данные", value: "pgvector, 12 источников" },
       { label: "Интеграции", value: "CRM, почта, Telegram" },
     ],
-    palette: ["#00b879", "#a3ff70"],
+    image: "/images/project-ai-sales.jpg",
+    imageAlt: "Ноутбук с тёмной панелью ассистента и графиком продаж в тёмном офисе",
   },
   {
     slug: "production-analytics",
@@ -142,7 +144,8 @@ export const projects: Project[] = [
       { label: "Поток", value: "События в near real-time" },
       { label: "Хранение", value: "Postgres + агрегаты" },
     ],
-    palette: ["#064c36", "#00b879"],
+    image: "/images/project-production-analytics.jpg",
+    imageAlt: "Производственный цех с роботизированными линиями и данными мониторинга",
   },
   {
     slug: "b2b-marketplace",
@@ -157,7 +160,8 @@ export const projects: Project[] = [
       { label: "Роли", value: "Закупщик, поставщик, админ" },
       { label: "Интеграции", value: "1С, почтовые уведомления" },
     ],
-    palette: ["#00b879", "#cbff9b"],
+    image: "/images/project-marketplace.jpg",
+    imageAlt: "Проход между стеллажами склада с паллетами и подсветкой",
   },
   {
     slug: "logistics-automation",
@@ -172,7 +176,8 @@ export const projects: Project[] = [
       { label: "Документы", value: "OCR с проверкой правил" },
       { label: "Уведомления", value: "Telegram, e-mail" },
     ],
-    palette: ["#a3ff70", "#00b879"],
+    image: "/images/project-logistics.jpg",
+    imageAlt: "Погрузчик с коробками и фургон у рампы логистического хаба",
   },
 ];
 
