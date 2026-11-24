@@ -21,20 +21,29 @@ SSH=(ssh -i "$SSH_KEY" -o BatchMode=yes -o StrictHostKeyChecking=accept-new "$HO
 echo "==> Проверяю доступ к $HOST"
 "${SSH[@]}" 'echo ok' >/dev/null
 
+deploy_failed=0
 revision="$(git rev-parse --short HEAD)"
 echo "==> Переношу коммит $revision"
 git archive --format=tar HEAD "${ARCHIVE_PATHS[@]}" \
   | "${SSH[@]}" "rm -rf /tmp/ada-deploy && mkdir -p /tmp/ada-deploy && tar -x -C /tmp/ada-deploy"
 
 echo "==> Собираю и перезапускаю контейнеры"
-"${SSH[@]}" 'bash -s' <<REMOTE
-set -euo pipefail
+if ! "${SSH[@]}" 'bash -s' <<REMOTE
+set -uo pipefail
 cd "$REMOTE_DIR"
 cp -a /tmp/ada-deploy/. .
 rm -rf /tmp/ada-deploy
 echo "===== deploy \$(date -u +%FT%TZ) $revision =====" >> deploy.log
-docker compose up -d --build >> deploy.log 2>&1
+# nginx из compose не поднимаем: 80/443 на хосте держит Caddy, он же терминирует TLS.
+docker compose up -d --build frontend backend >> deploy.log 2>&1
+status=\$?
+docker compose rm -f nginx >> deploy.log 2>&1 || true
+exit \$status
 REMOTE
+then
+  echo "!! Сборка или запуск не удались, всё равно чищу диск и смотрю статус"
+  deploy_failed=1
+fi
 
 echo "==> Чищу мусор"
 "${SSH[@]}" 'bash -s' <<'REMOTE'
@@ -67,6 +76,7 @@ echo "cleanup: +$((after - before)) MB свободно (${before} -> ${after} M
 REMOTE
 
 echo "==> Проверяю сервис"
+set +e
 "${SSH[@]}" 'bash -s' <<'REMOTE'
 set -uo pipefail
 for i in $(seq 1 30); do
@@ -78,3 +88,5 @@ docker compose ps --format 'table {{.Service}}\t{{.Status}}'
 echo "health: $code"
 df -h / | tail -1
 REMOTE
+
+exit "$deploy_failed"
