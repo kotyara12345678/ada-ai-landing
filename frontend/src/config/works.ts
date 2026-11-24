@@ -1,7 +1,7 @@
 /**
  * Концепт-сайты студии. Собираются в статику и живут на этом же домене
- * как самостоятельные страницы: /works/aureon и /works/nordline.
- * Исходники — каталоги aureon/ и nordline/, сборка — scripts/build-works.mjs.
+ * как самостоятельные страницы: /works/<slug>.
+ * Исходники — каталоги в корне репозитория, сборка — scripts/build-works.mjs.
  */
 export type Work = {
   slug: string;
@@ -48,6 +48,28 @@ export const works: Work[] = [
     href: "/works/aureon",
     cover: "/works-covers/aureon.jpg",
     coverAlt: "Первый экран концепт-сайта AUREON с домом среди сосен",
+  },
+  {
+    slug: "olea",
+    name: "OLEA",
+    discipline: "Ресторан средиземноморской кухни · одностраничный сайт",
+    summary:
+      "Тёплая редакционная витрина ресторана: сезонное меню с переключателем форматов, история шефа, галерея зала и форма брони с проверкой полей.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+    href: "/works/olea",
+    cover: "/works-covers/olea.jpg",
+    coverAlt: "Зал ресторана OLEA с терракотовыми стенами, оливковыми банкетками и свечами",
+  },
+  {
+    slug: "datum",
+    name: "DATUM",
+    discipline: "SaaS-платформа аналитики · продуктовый лендинг",
+    summary:
+      "Светлый продуктовый лендинг с интерфейсом дашборда, бенто-сеткой возможностей, тарифами с переключателем оплаты, FAQ и формой запроса демо.",
+    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
+    href: "/works/datum",
+    cover: "/works-covers/datum.jpg",
+    coverAlt: "Студийная композиция DATUM из полупрозрачных голубых панелей на светлом фоне",
   },
   {
     slug: "vectora",

@@ -35,6 +35,8 @@ const apps = [
   { dir: "aureon", slug: "aureon", cover: "public/images/hero-villa.jpg" },
   { dir: "nordline", slug: "nordline", cover: "public/images/hero-hall.jpg" },
   { dir: "vectora", slug: "vectora", cover: "public/images/og-vectora.jpg" },
+  { dir: "olea", slug: "olea", cover: "public/images/hero-room.jpg" },
+  { dir: "datum", slug: "datum", cover: "public/images/studio-sheets.jpg" },
 ];
 
 function collectRoutes(dir, prefix = "") {
