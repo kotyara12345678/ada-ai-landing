@@ -1,12 +1,10 @@
 #!/usr/bin/env node
 /**
- * Собирает концепт-сайты CONTERRA, AUREON и NORDLINE в статику и монтирует
- * их в frontend/public/works/<slug>.
+ * Собирает концепт-сайты из списка apps в статику и монтирует их
+ * в frontend/public/works/<slug>.
  *
  * Основной сайт ADA отдаёт их как собственные страницы:
- *   https://ada-ai.ru/works/conterra
- *   https://ada-ai.ru/works/aureon
- *   https://ada-ai.ru/works/nordline
+ *   https://ada-ai.ru/works/<slug>
  *
  * Запуск из корня репозитория: node scripts/build-works.mjs
  * Результат коммитится: Docker-сборка frontend копирует public целиком.
@@ -34,9 +32,7 @@ const apps = [
   { dir: "conterra", slug: "conterra", cover: "public/images/hero-business-center.jpg" },
   { dir: "aureon", slug: "aureon", cover: "public/images/hero-villa.jpg" },
   { dir: "nordline", slug: "nordline", cover: "public/images/hero-hall.jpg" },
-  { dir: "vectora", slug: "vectora", cover: "public/images/og-vectora.jpg" },
   { dir: "olea", slug: "olea", cover: "public/images/hero-room.jpg" },
-  { dir: "datum", slug: "datum", cover: "public/images/studio-sheets.jpg" },
 ];
 
 function collectRoutes(dir, prefix = "") {

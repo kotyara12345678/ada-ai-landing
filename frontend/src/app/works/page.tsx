@@ -8,7 +8,7 @@ import { WorksSection } from "@/components/home/WorksSection";
 export const metadata: Metadata = buildMetadata({
   title: "Работы — концепт-сайты студии ADA",
   description:
-    "Шесть демонстрационных сайтов, сделанных целиком: корпоративный CONTERRA, многостраничный AUREON, промышленный NORDLINE, тёмная IT-студия VECTORA, ресторан OLEA и SaaS-аналитика DATUM. Структура, дизайн, вёрстка, анимации и адаптив.",
+    "Четыре демонстрационных сайта, сделанных целиком: корпоративный CONTERRA, многостраничный AUREON, промышленный NORDLINE и ресторан OLEA. Структура, дизайн, вёрстка, анимации и адаптив.",
   path: "/works",
   keywords: ["портфолио веб-студии", "примеры сайтов", "концепт-сайты", "работы студии"],
 });

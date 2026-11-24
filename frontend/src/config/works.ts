@@ -60,26 +60,4 @@ export const works: Work[] = [
     cover: "/works-covers/olea.jpg",
     coverAlt: "Зал ресторана OLEA с терракотовыми стенами, оливковыми банкетками и свечами",
   },
-  {
-    slug: "datum",
-    name: "DATUM",
-    discipline: "SaaS-платформа аналитики · продуктовый лендинг",
-    summary:
-      "Светлый продуктовый лендинг с интерфейсом дашборда, бенто-сеткой возможностей, тарифами с переключателем оплаты, FAQ и формой запроса демо.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    href: "/works/datum",
-    cover: "/works-covers/datum.jpg",
-    coverAlt: "Студийная композиция DATUM из полупрозрачных голубых панелей на светлом фоне",
-  },
-  {
-    slug: "vectora",
-    name: "VECTORA",
-    discipline: "IT-компания · премиальный одностраничный сайт",
-    summary:
-      "Премиальный тёмный футуристичный сайт инженерной студии: hero с вычислительной сферой, шесть направлений, концептуальные проекты, стек, процесс, принципы, компания и форма обсуждения.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion", "Canvas"],
-    href: "/works/vectora",
-    cover: "/works-covers/vectora.jpg",
-    coverAlt: "Абстрактная вычислительная структура VECTORA на тёмном фоне",
-  },
 ];
