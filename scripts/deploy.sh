@@ -77,8 +77,9 @@ REMOTE
 
 echo "==> Проверяю сервис"
 set +e
-"${SSH[@]}" 'bash -s' <<'REMOTE'
+"${SSH[@]}" "REMOTE_DIR=$REMOTE_DIR bash -s" <<'REMOTE'
 set -uo pipefail
+cd "$REMOTE_DIR"
 for i in $(seq 1 30); do
   code=$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/health/ready || true)
   [ "$code" = "200" ] && break
